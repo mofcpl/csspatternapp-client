@@ -1,0 +1,15 @@
+@import '../../css/variables';
+
+:host {
+    grid-area: 2 / 1 / 3 / 3;
+
+    padding-left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    >a {
+        color: $link-color;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,88 @@
+@import '../../css/mixins';
+@import '../../css/variables';
+
+:host {
+    grid-area: 4 / 4 / 6 / 5;
+
+    padding-right: 8px;
+
+    .card
+    {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;  
+        box-sizing: border-box;
+
+        overflow-y: auto;
+        
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+
+        .list-item
+        {
+            height: 40px;
+            margin: 2px 5px 2px 5px;
+            display: grid;
+            grid-template-columns: 50% 25% 25%;
+            grid-template-areas: "text eye grid";
+            align-items: center;
+            color: adjust-color($outer-space, $lightness: +45%);
+
+            button
+            {
+                border: 0;
+                height: auto;
+            }
+
+            button:active
+            {
+                color: adjust-color($outer-space, $lightness: +65%);
+                background-color: inherit;
+            }
+
+            .text
+            {
+                text-align: center;
+                grid-area: text;
+                background-color: transparent;
+            }
+
+            .eye-icon-active
+            {
+                text-align: center;
+                grid-area: eye;
+                background-color: transparent;
+            }
+            .grid-icon-active
+            {
+                text-align: center;
+                grid-area: grid;
+                background-color: transparent;
+            }
+
+            .eye-icon 
+            {
+                @extend .eye-icon-active;
+                color: adjust-color($outer-space, $lightness: +10%);
+            }
+            .grid-icon
+            {
+                @extend .grid-icon-active;
+                color: adjust-color($outer-space, $lightness: +10%);
+            }
+
+        }
+        
+        .list-item-inactive
+        {
+            @extend .list-item;   
+            @include card-scheme($outer_space, 5%);
+        }
+
+        .list-item-active
+        {
+            @extend .list-item;
+            @include card-scheme(adjust-color($outer-space, $lightness: -10%), -5%);
+        }
+    }
+}

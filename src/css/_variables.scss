@@ -1,0 +1,22 @@
+$outer-space: #434855;
+$azure: #0884FF;
+$aurometalsaurus: #757c8a;
+$charleston-green: #232935;
+$arsenic: #373c48;
+$gold: #ffffcc;
+
+//Global
+$card-color: $aurometalsaurus;
+
+//Logo
+$logo-card-background: $arsenic;
+$logo-primary-color: adjust-color($outer-space, $lightness: +60%);
+$logo-secondary-color: $azure;
+
+//Management
+$link-color: $gold;
+
+//Code
+$code-card-background: $outer_space;
+$code-text-color: adjust-color($outer-space, $lightness: -15%);
+$code-text-area-color: adjust-color($outer-space, $lightness: +50%);

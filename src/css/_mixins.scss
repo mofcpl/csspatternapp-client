@@ -1,0 +1,13 @@
+@mixin card-scheme($color, $contrast)
+{ 
+    background-color: $color;
+    border-top: solid 2px adjust-color($color, $lightness: + $contrast);
+    border-bottom: solid 2px adjust-color($color, $lightness: - $contrast);
+}
+
+@mixin card-scheme-oposite($color, $contrast)
+{ 
+    background-color: $color;
+    border-top: solid 2px adjust-color($color, $lightness: - $contrast);
+    border-bottom: solid 2px adjust-color($color, $lightness: + $contrast);
+}

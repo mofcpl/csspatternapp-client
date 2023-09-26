@@ -1,0 +1,27 @@
+@import '../../css/mixins';
+@import '../../css/variables';
+
+:host {
+    grid-area: 1 / 1 / 2 / 2;
+
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+
+    >div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $logo-primary-color;
+        @include card-scheme($logo-card-background, 5%);
+
+        >div {
+            font-size: 3vw;
+            font-weight: bold;
+
+            >span {
+                color: $logo-secondary-color;
+            }
+        }
+    }
+}

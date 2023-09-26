@@ -1,0 +1,134 @@
+
+@import './mixins';
+@import './variables';
+
+.control-triger
+{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    margin: 5px 12px;
+    
+}
+.control-name
+{
+    margin: 0px 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button 
+{  
+    opacity: 1;
+    cursor: pointer;
+}
+input
+{
+    margin: 0px 3px;
+    width: 50px;
+    background-color: adjust-color($outer-space, $lightness: +55%);
+    color: adjust-color($outer-space, $lightness: -15%);
+    border: 0;
+}
+input[type=checkbox]
+{
+    margin: 0px 3px;
+    width: 20px;
+    cursor: pointer;
+}
+input[type=range]
+{
+    margin: 0px 3px;
+    width: 100px; 
+    cursor: pointer;
+}
+input[type=color]
+{
+    margin: 0px 3px;
+    width: 20px;
+    cursor: pointer;
+}
+input[type=number]
+{
+    margin: 0px 3px;
+    width: 40px;
+    text-align: center;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+input[type=text]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+input[type=password]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+input[type=email]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+select
+{
+    border: 0;
+    cursor: pointer;
+    color:adjust-color($outer-space, $lightness: -15%);
+    @include card-scheme-oposite(adjust-color($outer-space, $lightness: +55%), 10%);
+}
+
+button
+{
+    height: 40px;
+    margin: 2px 5px 2px 0px;
+    border: 0;
+    @include card-scheme($outer_space, 5%);
+    color: adjust-color($outer-space, $lightness: +45%);
+    cursor: pointer;
+}
+button:hover
+{
+    color: adjust-color($outer-space, $lightness: +65%);
+}
+button:active
+{
+    @include card-scheme(adjust-color($outer-space, $lightness: -10%), -5%);
+    color: adjust-color($outer-space, $lightness: +45%);
+}
+
+
+textarea:focus, input:focus, select:focus
+{
+    outline: none;
+}
+
+*:focus
+{
+    outline: none;
+}
+
+input[type="number"]:disabled 
+{
+  color: adjust-color($outer-space, $lightness: +45%);
+}
+
+a
+{
+    color: $gold;
+    text-decoration: none;
+    text-align: center;
+    &:hover
+    {
+        color: adjust-color($gold, $lightness: -25%);
+    }
+}
