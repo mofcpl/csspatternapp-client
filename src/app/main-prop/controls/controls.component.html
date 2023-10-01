@@ -1,8 +1,10 @@
 <div class="control-triger">
     <div class="control-name">background</div>
     <input 
+        [ngModel]="backgroundColor"
+        (ngModelChange)="backgroundColor = $event; changeBackgroundColor()"
         type="color"
-        placeholder="HTML code..."/>
+        />
 </div>
 <div class="control-triger">
     <div class="control-name">width(px)</div>

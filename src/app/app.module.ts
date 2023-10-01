@@ -20,6 +20,9 @@ import { LineComponent } from './properties/line/line.component';
 import { RadiusComponent } from './properties/radius/radius.component';
 import { StoreModule } from '@ngrx/store';
 import { patternReducer } from './store/pattern.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { FormsModule } from '@angular/forms';
+import { PatternEffects } from './store/pattern.effects';
 
 @NgModule({
   declarations: [
@@ -42,10 +45,12 @@ import { patternReducer } from './store/pattern.reducer';
     RadiusComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     StoreModule.forRoot({
       pattern: patternReducer
-    })
+    }),
+    EffectsModule.forRoot([PatternEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

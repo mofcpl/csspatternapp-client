@@ -1,6 +1,8 @@
-import { createReducer } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
+import { set, setBackground } from "./pattern.actions";
+import { Pattern } from "../models/pattern.model";
 
-const initialState = {
+export const initialState: Pattern = {
     backgroundColor: "#ffffff",
     width: 100,
     height: 100,
@@ -18,4 +20,13 @@ const initialState = {
     }
 }
 
-export const patternReducer = createReducer(initialState);
+export const patternReducer = createReducer(
+    initialState,
+    on(setBackground, (state, action) => {
+        return {
+            ...state,
+            backgroundColor: action.value
+        }
+    }),
+    on(set, (state, action) => action.value)
+);
