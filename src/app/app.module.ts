@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
 import { LinksComponent } from './links/links.component';
 import { FooterComponent } from './footer/footer.component';
-import { CanvasComponent } from './canvas/canvas.component';
 import { CodeComponent } from './code/code.component';
 import { MainPropComponent } from './main-prop/main-prop.component';
 import { ManagementComponent } from './management/management.component';
@@ -30,7 +29,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     LogoComponent,
     LinksComponent,
     FooterComponent,
-    CanvasComponent,
     CodeComponent,
     MainPropComponent,
     ManagementComponent,

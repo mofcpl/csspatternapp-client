@@ -16,7 +16,6 @@ export interface ISettings {
 
 export interface IMainProps extends IProperties, ISettings {}
 
-
 export interface IPattern extends IMainProps {
     //pattern
     linears: Linear[],
