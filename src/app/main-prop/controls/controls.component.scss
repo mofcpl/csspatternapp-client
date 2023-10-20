@@ -2,13 +2,21 @@
 @import '../../../css/variables';
 
 :host {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-bottom: 10px;
+
+    >form {
+
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        margin-bottom: 10px;
+        
+        @include card-scheme($outer_space, 5%);
+        color: adjust-color($outer-space, $lightness: +45%);
+        
+        padding: 5px;
+    }
     
-    @include card-scheme($outer_space, 5%);
-    color: adjust-color($outer-space, $lightness: +45%);
-    
-    padding: 5px;
 }

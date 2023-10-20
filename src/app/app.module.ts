@@ -19,10 +19,10 @@ import { RadialComponent } from './properties/radial/radial.component';
 import { LineComponent } from './properties/line/line.component';
 import { RadiusComponent } from './properties/radius/radius.component';
 import { StoreModule } from '@ngrx/store';
-import { patternReducer } from './store/pattern.reducer';
+import { patternReducer } from './core/store/pattern.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { FormsModule } from '@angular/forms';
-import { PatternEffects } from './store/pattern.effects';
+import { PatternEffects } from './core/store/pattern.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { PatternEffects } from './store/pattern.effects';
     RadiusComponent
   ],
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     StoreModule.forRoot({
       pattern: patternReducer

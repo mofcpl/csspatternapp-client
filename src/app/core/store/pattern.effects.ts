@@ -1,16 +1,16 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { of, switchMap, tap, withLatestFrom } from "rxjs";
-import { Pattern } from "../models/pattern.model";
+import { IPattern } from "../models/pattern.model";
 import { Injectable } from "@angular/core";
-import { init, set, setBackground } from "./pattern.actions";
+import { init, setMainProp} from "./pattern.actions";
 import { initialState } from "./pattern.reducer";
 import { selectPattern } from "./pattern.selectors";
 
 @Injectable()
 export class PatternEffects {
 
-    constructor(private actions$: Actions, private store: Store<{pattern: Pattern}>) { }
+    constructor(private actions$: Actions, private store: Store<{pattern: IPattern}>) { }
 
     loadPattern = createEffect(
         () => this.actions$.pipe(
@@ -18,16 +18,16 @@ export class PatternEffects {
                 switchMap(() => {
                     const storedPattern = localStorage.getItem('pattern');
                     if (storedPattern) {
-                        return of(set({value: JSON.parse(storedPattern)}))
+                        return of(setMainProp({value: JSON.parse(storedPattern)}))
                     }
-                    return of(set({value: initialState}))
+                    return of(setMainProp({value: initialState}))
                 })
             )
     )
 
     savePattern = createEffect(
         () => this.actions$.pipe(
-            ofType(setBackground),
+            ofType(setMainProp),
             withLatestFrom(this.store.select(selectPattern)),
             tap(([action, pattern]) => {
                 

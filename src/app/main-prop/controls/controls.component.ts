@@ -1,31 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Pattern } from 'src/app/models/pattern.model';
-import { setBackground } from 'src/app/store/pattern.actions';
-import { selectPattern } from 'src/app/store/pattern.selectors';
+import { Observable, map, tap } from 'rxjs';
+import { IMainProps, IPattern } from 'src/app/core/models/pattern.model';
+import { setMainProp } from 'src/app/core/store/pattern.actions';
+import { selectMainProps } from 'src/app/core/store/pattern.selectors';
 
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.scss']
 })
-export class ControlsComponent implements OnInit {
-  
-  backgroundColor: string = '#000000';
+export class ControlsComponent implements OnInit, OnDestroy {
+  form: FormGroup;
+  mainProps$: Observable<IMainProps>;
 
-  constructor(private store: Store<{pattern: Pattern}>) {}
+  constructor(private formBuilder: FormBuilder, private store: Store<{pattern: IPattern}>) {
+    this.form = formBuilder.group({
+      backgroundColor: [''],
+      width: [''],
+      height: [''],
+      positioning: [''],
+      zoom: [''],
+      grid: [''],
+      repeat: [''],
+    });
+    this.mainProps$ = store.select(selectMainProps);
+    this.mainProps$.subscribe(data => this.form.patchValue(data, {emitEvent: false}));
+  }
 
   ngOnInit() {
-    this.store.select(selectPattern).subscribe((state) => {
-      if (state.backgroundColor !== this.backgroundColor) {
-        this.backgroundColor = state.backgroundColor;
-      }
-    })
+    this.form.valueChanges.subscribe(
+      (value: IMainProps) => this.store.dispatch(setMainProp({value}))
+    )
   }
 
-  changeBackgroundColor() {
-    this.store.dispatch(setBackground({value: this.backgroundColor}))
+  ngOnDestroy() {
+    
   }
-
 }

@@ -1,40 +1,33 @@
-<div class="control-triger">
-    <div class="control-name">background</div>
-    <input 
-        [ngModel]="backgroundColor"
-        (ngModelChange)="backgroundColor = $event; changeBackgroundColor()"
-        type="color"
-        />
-</div>
-<div class="control-triger">
-    <div class="control-name">width(px)</div>
-
-    <input min="2" type="number"/>
-</div>
-<div class="control-triger">
-    <div class="control-name">height(px)</div>
-
-    <input min="2" type="number"/>
-</div>
-<div class="control-triger">
-    <div class="control-name">grid</div>
-
-    <input type="checkbox"/>
-</div>
-<div class="control-triger">
-    <div class="control-name">repeat</div>
-
-    <input type="checkbox"/>
-</div>
-<div class="control-triger">
-    <div class="control-name">position</div>
-    <select type="text" list="types">
-        <option value="%">%</option>
-        <option value="px">px</option>
-    </select>
-</div>
-<div class="control-triger">
-    <div class="control-name">zoom</div>
-
-    <input type="range"  min="0.5" max="2.5" step="0.05" />
-</div>
+<form [formGroup]="form" >
+    <div class="control-triger">
+        <label for="background" class="control-name">background</label>
+        <input formControlName="backgroundColor" id="background" type="color" />
+    </div>
+    <div class="control-triger">
+        <label for="width" class="control-name">width(px)</label>
+        <input formControlName="width" id="width" min="2" type="number" />
+    </div>
+    <div class="control-triger">
+        <label for="height" class="control-name">height(px)</label>
+        <input formControlName="height" id="height" min="2" type="number" />
+    </div>
+    <div class="control-triger">
+        <label for="grid" class="control-name">grid</label>
+        <input formControlName="grid" id="grid" type="checkbox" />
+    </div>
+    <div class="control-triger">
+        <label for="repeat" class="control-name">repeat</label>
+        <input formControlName="repeat" id="repeat" type="checkbox" />
+    </div>
+    <div class="control-triger">
+        <label for="positioning" class="control-name">positioning</label>
+        <select formControlName="positioning" id="positioning" type="text" list="types">
+            <option value="%">%</option>
+            <option value="px">px</option>
+        </select>
+    </div>
+    <div class="control-triger">
+        <label for="zoom" class="control-name">zoom</label>
+        <input formControlName="zoom" id="zoom" type="range" min="0.5" max="2.5" step="0.05" />
+    </div>
+</form>

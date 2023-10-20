@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Pattern } from './models/pattern.model';
 import { Store } from '@ngrx/store';
-import { init } from './store/pattern.actions';
+import { init } from './core/store/pattern.actions';
 
 @Component({
   selector: 'app-root',
