@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IPattern } from '../core/models/pattern.model';
-import { selectBackgroundColor, selectPropsForGrid } from '../core/store/pattern.selectors';
+import { selectBackgroundColor, selectGrid, selectPropsForGrid } from '../core/store/pattern.selectors';
 import { Observable, map } from 'rxjs';
 import { PreviewService } from './preview.service';
 
@@ -16,6 +16,7 @@ export class PreviewComponent {
     backgroundImage: string,
     backgroundSize: string
   }>;
+  grid$: Observable<boolean>;
 
   constructor(private service: PreviewService,private store: Store<{pattern: IPattern}>){
     
@@ -25,12 +26,18 @@ export class PreviewComponent {
       map((data) => {
         const color = service.hexToRgb(data.backgroundColor);
         const gridColor = (color[0]+color[1]+color[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
-        const backgroundImage = "linear-gradient(90deg,transparent "+(data.size.width * data.zoom - 1)+"px, "+gridColor+" "+(data.size.width * data.zoom - 1)+"px, "+gridColor+" "+(data.size.width * data.zoom)+"px),"
-        +"linear-gradient(180deg,transparent "+(data.size.height * data.zoom - 1)+"px, "+gridColor+" "+(data.size.height * data.zoom -1)+"px, "+gridColor+" "+(data.size.height * data.zoom)+"px)";
+        const backgroundImage = this.drawGrid(data.size.width, data.size.height, gridColor, data.zoom);
         const backgroundSize = (data.size.width * data.zoom)+"px "+ (data.size.height * data.zoom)+"px";
         return { backgroundImage, backgroundSize }
       })
     )
+
+    this.grid$ = store.select(selectGrid);
+  }
+
+  drawGrid(width: number, height: number, color: string, zoom: number): string {
+    return "linear-gradient(90deg,transparent "+(width * zoom - 1)+"px, "+color+" "+(width * zoom - 1)+"px, "+color+" "+(width * zoom)+"px),"
+      +"linear-gradient(180deg,transparent "+(height * zoom - 1)+"px, "+color+" "+(height * zoom -1)+"px, "+color+" "+(height * zoom)+"px)";
   }
 
 }

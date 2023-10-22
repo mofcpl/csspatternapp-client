@@ -1,3 +1,3 @@
 <div class="background" [style.backgroundColor]="backgroundColor$ | async">
-    <div class="grid" [style]="gridStyle$ | async"></div>
+    <div *ngIf="grid$ | async" class="grid" [style]="gridStyle$ | async"></div>
 </div>

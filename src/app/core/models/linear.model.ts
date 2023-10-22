@@ -12,6 +12,8 @@ export interface Linear {
     height: number,
     autoSize: boolean,
     vertical: number,
+    horizontal: number,
+    visible: boolean,
     grid: boolean,
     lines: Line[]
 }

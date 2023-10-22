@@ -1,7 +1,17 @@
 <div class="card">
-    <div class="list-item-inactive">
-        <button class="text">Linear</button>
-        <button  class="eye-icon-active"><i className="icon-eye"></i></button>
-        <button  class="grid-icon-active"><i className="icon-grid"></i></button>
-    </div>
+    <span *ngIf="list$ | async as list">
+        <div *ngFor="let linear of list.linears; index as i" [ngClass]="list.selected.type==Type.Linear && list.selected.index == i? 'list-item-active': 'list-item-inactive'">
+            <button (click)="selectLayer(Type.Linear, i)" class="text">Linear {{i}}</button>
+            <button (click)="switchVisibility(Type.Linear, i)" [ngClass]="linear.visible ? 'eye-icon-active' : 'eye-icon'"></button>
+            <button (click)="switchGrid(Type.Linear, i)" [ngClass]="linear.grid ? 'grid-icon-active' : 'grid-icon'"></button>
+        </div>
+    
+    
+        <div *ngFor="let radial of list.radials; index as i" (click)="selectLayer(Type.Radial, i)" [ngClass]="list.selected.type==Type.Radial && list.selected.index == i? 'list-item-active': 'list-item-inactive'">
+            <button (click)="selectLayer(Type.Radial, i)" class="text">Radial {{i}}</button>
+            <button (click)="switchVisibility(Type.Radial, i)" [ngClass]="radial.visible ? 'eye-icon-active' : 'eye-icon'"></button>
+            <button (click)="switchGrid(Type.Radial, i)" [ngClass]="radial.grid ? 'grid-icon-active' : 'grid-icon'"></button>
+        </div>
+    </span>
+    
 </div>

@@ -1,9 +1,19 @@
 import { createSelector } from "@ngrx/store";
-import { IPattern, IProperties, ISettings} from "../models/pattern.model";
+import { IPattern, IProperties, ISettings, Type} from "../models/pattern.model";
+import { Radial } from "../models/radial.model";
+import { Linear } from "../models/linear.model";
 
 export const selectBackgroundColor = (state: {pattern: IPattern}) => state.pattern.backgroundColor;
 
 export const selectZoom = (state: {pattern: IPattern}) => state.pattern.zoom;
+
+export const selectGrid = (state: {pattern: IPattern}) => state.pattern.grid;
+
+export const selectRadials = (state: {pattern: IPattern}) => state.pattern.radials;
+
+export const selectLinears = (state: {pattern: IPattern}) => state.pattern.linears;
+
+export const selectSelected = (state: {pattern: IPattern}) => state.pattern.selected;
 
 export const selectPattern = (state: {pattern: IPattern}) => state.pattern;
 
@@ -42,5 +52,14 @@ export const selectPropsForGrid = createSelector(
     selectPatternSize,
     (backgroundColor: string, zoom: number, size: {width: number, height: number}) => {
         return {backgroundColor, zoom, size}
+    }
+)
+
+export const selectList = createSelector(
+    selectRadials,
+    selectLinears,
+    selectSelected,
+    (radials: Radial[], linears: Linear[], selected: {type: Type, index: number}) => {
+        return {radials, linears, selected}
     }
 )

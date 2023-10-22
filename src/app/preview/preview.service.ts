@@ -26,4 +26,6 @@ export class PreviewService {
         return rgb;
     
     }
+
+    
 }

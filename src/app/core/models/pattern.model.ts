@@ -12,12 +12,21 @@ export interface ISettings {
     zoom: number,
     grid: boolean,
     repeat: boolean,
+    selected: {
+        type: Type,
+        index: number
+    }
 }
 
-export interface IMainProps extends IProperties, ISettings {}
+export enum Type {
+    Linear,
+    Radial,
+    None
+}
+
+export interface IMainProps extends IProperties, ISettings { }
 
 export interface IPattern extends IMainProps {
-    //pattern
     linears: Linear[],
     radials: Radial[],
 }
