@@ -1,54 +1,54 @@
 <div class="control-triger">
     <div class="control-name">shape</div>
-    <select  type="text" list="types">
-        <option value="ellipse ">ellipse</option>
-        <option value="circle">circle</option>
+    <select  type="text" list="types" [selectedIndex]="radial.shape">
+        <option [value]="Shape.Ellipse">ellipse</option>
+        <option [value]="Shape.Circle">circle</option>
     </select>
 </div>
 
 <div class="control-triger">
     <div class="control-name">auto-size</div>
-    <input type="checkbox"/>
+    <input type="checkbox" [value]="radial.autoSize"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">width</div>
-
-    <input min="2" type="number"/>
+    <input type="number" [value]="radial.width" [disabled]="radial.autoSize"/>
 </div>
+
 <div class="control-triger">
     <div class="control-name">height</div>
-
-    <input min="2" type="number"/>
+    <input type="number" [value]="radial.height" [disabled]="radial.autoSize"/>
 </div>
                          
 <div class="control-triger">
     <div class="control-name">size</div>
-        <select  type="text" list="types">
-            <option value="farthest-corner">farthest corner</option>
-            <option value="closest-side">closest side</option>
-            <option value="closest-corner">closest corner</option>
-            <option value="farthest-side">farthest side</option>
-        </select>
+    <select  type="text" list="types" [selectedIndex]="radial.size">
+        <option [value]="Size.FarthestCorner">farthest corner</option>
+        <option [value]="Size.ClosestSide">closest side</option>
+        <option [value]="Size.ClosestCorner">closest corner</option>
+        <option [value]="Size.FarthestSide">farthest side</option>
+    </select>
     </div>
                          
 <div class="control-triger">    
     <div class="control-name">pos x</div>
-    <input type="number"/>
+    <input type="number" [value]="radial.posx"/>
 </div>
         
-<div class="control-triger">    
+<div class="control-triger">
     <div class="control-name">pos y</div>
-    <input type="number"/>
+    <input type="number" [value]="radial.posy"/>
 </div>
                          
-<div class="control-triger">    
+<div class="control-triger">
     <div class="control-name">vertical shift(px)</div>
-    <input type="number"/>
+    <input type="number" [value]="radial.vertical"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">horizontal shift(px)</div>
-    <input type="number"/>
+    <input type="number" [value]="radial.horizontal"/>
 </div>
-    <button class="control-button">add radius</button>
+
+<button class="control-button">add radius</button>

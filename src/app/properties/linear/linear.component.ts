@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Linear } from 'src/app/core/models/linear.model';
 
 @Component({
   selector: 'app-linear',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   host: {'class': 'control-module'}
 })
 export class LinearComponent {
-
+  @Input() linear!: Linear;
 }

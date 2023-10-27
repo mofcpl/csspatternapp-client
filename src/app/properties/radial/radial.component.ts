@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Radial, Shape, Size } from 'src/app/core/models/radial.model';
 
 @Component({
   selector: 'app-radial',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   host: {'class': 'control-module'}
 })
 export class RadialComponent {
-
+  @Input() radial!: Radial;
+  Size = Size;
+  Shape = Shape;
 }

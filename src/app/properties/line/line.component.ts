@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Line } from 'src/app/core/models/linear.model';
 
 @Component({
   selector: 'app-line',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   host: {'class': 'control-module'}
 })
 export class LineComponent {
-
+@Input() line!: Line;
 }

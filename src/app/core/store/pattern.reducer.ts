@@ -1,8 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { IPattern, Type } from "../models/pattern.model";
-import { addLinear, addRadial, clone, select, setMainProp, setPattern, switchGrid} from "./pattern.actions";
+import { addLinear, addRadial, clone, select, setMainProp, setPattern, switchGrid, switchVisibility} from "./pattern.actions";
 import { Line, Linear } from "../models/linear.model";
-import { Radial, Ray } from "../models/radial.model";
+import { Radial, Ray, Shape, Size } from "../models/radial.model";
 
 export const initialState: IPattern = {
     backgroundColor: "#ffffff",
@@ -30,8 +30,8 @@ const defaultLine: Line = {
 
 const defaultLinear: Linear = {
     direction: 90,
-    width: 0, 
-    height: 0, 
+    width: 0,
+    height: 0,
     autoSize: true, 
     vertical: 0, 
     horizontal: 0, 
@@ -49,9 +49,11 @@ const defaultRay: Ray = {
 }
 
 const defaultRadial: Radial = {
-    shape: "ellipse", 
+    shape: Shape.Ellipse, 
     autoSize: true, 
-    size: "farthest-corner", 
+    size: Size.FarthestCorner, 
+    width: 0,
+    height: 0,
     posx: 50, 
     posy: 50, 
     vertical: 0, 
@@ -114,6 +116,23 @@ export const patternReducer = createReducer(
             case Type.Linear: return {
                 ...state,
                 linears: state.linears.map(changeGrid)
+            }
+            default: return state;
+        }
+    }),
+    on(switchVisibility, (state, action) => {
+        const changeVisibility = (element: any, index: number) => {
+            return index == action.value.index ? {...element, visible: !element.visible} : element
+        }
+        
+        switch(action.value.type) {           
+            case Type.Radial: return {
+                ...state,
+                radials: state.radials.map(changeVisibility)
+            }
+            case Type.Linear: return {
+                ...state,
+                linears: state.linears.map(changeVisibility)
             }
             default: return state;
         }

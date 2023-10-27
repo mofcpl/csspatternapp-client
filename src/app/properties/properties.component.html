@@ -1,5 +1,19 @@
 <div class="card">
-    <app-linear></app-linear>
-    <app-line></app-line>
-    <app-line></app-line>
+    <ng-container *ngIf="selected$ | async as selected" [ngSwitch]="selected.type">
+        <ng-container *ngSwitchCase="Type.Linear">
+            <ng-container *ngIf="linears$ | async as linears">
+                <app-linear [linear]="linears[selected.index]"></app-linear>
+                <app-line *ngFor="let line of linears[selected.index].lines" [line]="line"></app-line>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="Type.Radial">
+            <ng-container *ngIf="radials$ | async as radials">
+                <app-radial [radial]="radials[selected.index]"></app-radial>
+                <app-radius *ngFor="let ray of radials[selected.index].rays" [radius]="ray"></app-radius>
+            </ng-container>
+        </ng-container>
+
+    </ng-container>
 </div>
+
+z

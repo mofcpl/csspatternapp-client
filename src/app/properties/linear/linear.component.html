@@ -1,31 +1,31 @@
 <div class="control-triger">    
     <div class="control-name">direction</div>
-    <input type="number" min="0" max="360"/>
+    <input type="number" [value]="linear.direction"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">auto-size</div>
-    <input type="checkbox"/>
+    <input type="checkbox" [checked]="linear.autoSize"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">width</div>
-
-    <input min="2" type="number"/>
+    <input type="number" [value]="linear.width" [disabled]="linear.autoSize"/>
 </div>
+
 <div class="control-triger">
     <div class="control-name">height</div>
-
-    <input min="2" type="number"/>
+    <input type="number" [value]="linear.height" [disabled]="linear.autoSize"/>
 </div>
 
 <div class="control-triger">    
     <div class="control-name">vertical shift(px)</div>
-    <input type="number"/>
+    <input type="number" [value]="linear.vertical"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">horizontal shift(px)</div>
-    <input type="number"/>
+    <input type="number" [value]="linear.horizontal"/>
 </div>
+
 <button class="control-button">add line</button>

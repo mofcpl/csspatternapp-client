@@ -1,5 +1,5 @@
 <div class="card">
-    <span *ngIf="list$ | async as list">
+    <ng-container *ngIf="list$ | async as list">
         <div *ngFor="let linear of list.linears; index as i" [ngClass]="list.selected.type==Type.Linear && list.selected.index == i? 'list-item-active': 'list-item-inactive'">
             <button (click)="selectLayer(Type.Linear, i)" class="text">Linear {{i}}</button>
             <button (click)="switchVisibility(Type.Linear, i)" [ngClass]="linear.visible ? 'eye-icon-active' : 'eye-icon'"></button>
@@ -12,6 +12,6 @@
             <button (click)="switchVisibility(Type.Radial, i)" [ngClass]="radial.visible ? 'eye-icon-active' : 'eye-icon'"></button>
             <button (click)="switchGrid(Type.Radial, i)" [ngClass]="radial.grid ? 'grid-icon-active' : 'grid-icon'"></button>
         </div>
-    </span>
+    </ng-container>
     
 </div>

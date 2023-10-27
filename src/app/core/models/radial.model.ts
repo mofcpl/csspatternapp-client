@@ -1,3 +1,15 @@
+export enum Shape {
+    Ellipse,
+    Circle
+}
+
+export enum Size {
+    FarthestCorner,
+    ClosestSide,
+    ClosestCorner,
+    FarthestSide
+}
+
 export interface Ray {
     position: number,
     color: string,
@@ -7,9 +19,11 @@ export interface Ray {
 }
 
 export interface Radial {
-    shape: string,
+    shape: Shape,
     autoSize: boolean,
-    size: string,
+    width: number,
+    height: number,
+    size: Size,
     posx: number,
     posy: number,
     vertical: number,

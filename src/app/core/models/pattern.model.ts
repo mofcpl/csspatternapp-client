@@ -8,14 +8,16 @@ export interface IProperties {
     positioning: string,
 }
 
+export interface ISelected {
+    type: Type,
+    index: number
+}
+
 export interface ISettings {
     zoom: number,
     grid: boolean,
     repeat: boolean,
-    selected: {
-        type: Type,
-        index: number
-    }
+    selected: ISelected
 }
 
 export enum Type {

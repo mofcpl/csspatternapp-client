@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Ray } from 'src/app/core/models/radial.model';
 
 @Component({
   selector: 'app-radius',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   host: {'class': 'control-module'}
 })
 export class RadiusComponent {
-
+  @Input() radius!: Ray;
 }

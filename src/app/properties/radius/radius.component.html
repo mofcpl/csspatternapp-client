@@ -1,26 +1,26 @@
 <div class="control-triger">
     <div class="control-name">position</div>
-    <input type="number" min="0" />
+    <input type="number" [value]="radius.position"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">size</div>
-    <input type="number" min="1" />
+    <input type="number" [value]="radius.size"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">color</div>
-    <input type="color" />
+    <input type="color" [value]="radius.color"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">opacity</div>
-    <input type="number" min="0" max="100" />
+    <input type="number" [value]="radius.opacity"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">blur</div>
-    <input type="number" min="0" />
+    <input type="number" [value]="radius.blur"/>
 </div>
                                   
 <button class="control-button">delete</button>

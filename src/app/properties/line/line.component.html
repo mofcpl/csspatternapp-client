@@ -1,26 +1,26 @@
 <div class="control-triger">
     <div class="control-name">position</div>
-    <input type="number" min="0" />
+    <input type="number" [value]="line.position"/>
 </div>
 
 <div class="control-triger">
     <div class="control-name">size</div>
-    <input type="number" min="1" />
+    <input type="number" [value]="line.size"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">color</div>
-    <input type="color" />
+    <input type="color" [value]="line.color"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">opacity</div>
-    <input type="number" min="0" max="100" />
+    <input type="number" [value]="line.opacity"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">blur</div>
-    <input type="number" min="0" />
+    <input type="number" [value]="line.blur"/>
 </div>
                                   
 <button class="control-button">delete</button>
