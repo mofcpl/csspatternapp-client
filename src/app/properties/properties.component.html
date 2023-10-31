@@ -1,19 +1,14 @@
 <div class="card">
-    <ng-container *ngIf="selected$ | async as selected" [ngSwitch]="selected.type">
+    <ng-container *ngIf="list$ | async as list" [ngSwitch]="list.selected.type">
         <ng-container *ngSwitchCase="Type.Linear">
-            <ng-container *ngIf="linears$ | async as linears">
-                <app-linear [linear]="linears[selected.index]"></app-linear>
-                <app-line *ngFor="let line of linears[selected.index].lines" [line]="line"></app-line>
-            </ng-container>
+            <app-linear [linear]="list.linear" [index]="list.selected.index"></app-linear>
+            <app-line *ngFor="let line of list.linear.lines; index as i" [line]="line" [linearIndex]="list.selected.index" [lineIndex]="i"></app-line>
         </ng-container>
         <ng-container *ngSwitchCase="Type.Radial">
-            <ng-container *ngIf="radials$ | async as radials">
-                <app-radial [radial]="radials[selected.index]"></app-radial>
-                <app-radius *ngFor="let ray of radials[selected.index].rays" [radius]="ray"></app-radius>
-            </ng-container>
+            <app-radial [radial]="list.radial" [index]="list.selected.index"></app-radial>
+            <app-radius *ngFor="let radius of list.radial.rays; index as i" [radius]="radius" [radialIndex]="list.selected.index" [radiusIndex]="i"></app-radius>
         </ng-container>
-
     </ng-container>
 </div>
 
-z
+<!-- TU TRZEBA COŚ WYMYŚLIĆ ŻEBY SIĘ NIE PRZERENDEROWYWAŁY LINES I RAYS W KÓŁKo-->

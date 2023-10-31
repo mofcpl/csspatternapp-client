@@ -1,11 +1,11 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
-import { of, switchMap, tap, withLatestFrom } from "rxjs";
-import { IPattern } from "../models/pattern.model";
+import { Store, createAction } from "@ngrx/store";
+import { mergeMap, of, switchMap, tap, withLatestFrom } from "rxjs";
+import { IPattern, ISelected, Type } from "../models/pattern.model";
 import { Injectable } from "@angular/core";
-import { init, setMainProp} from "./pattern.actions";
+import { deleteLine, deleteRadius, init, select, setMainProp} from "./pattern.actions";
 import { initialState } from "./pattern.reducer";
-import { selectPattern } from "./pattern.selectors";
+import { selectLinears, selectList, selectPattern, selectRadials, selectSelected } from "./pattern.selectors";
 
 @Injectable()
 export class PatternEffects {
@@ -38,7 +38,19 @@ export class PatternEffects {
         { dispatch: false }
     );
 
-
-
-
+    changeSelectedAfterDelete = createEffect(
+        () => this.actions$.pipe(
+            ofType(deleteLine, deleteRadius),
+            withLatestFrom(this.store.select(selectList)),
+            switchMap(([action, list]) => {
+                let isLayerEmpty: boolean = false;
+                switch(action.type) {
+                    case "[Pattern] Delete line": if(list.linears.length < 1) isLayerEmpty = true; break;
+                    case "[Pattern] Delete radius": if(list.radials.length < 1) isLayerEmpty = true; break;
+                }
+                if(isLayerEmpty) return of(select({value: {type: Type.None, index: 0}}))
+                else return of(select({value: list.selected}))
+            })
+        )
+    )
 }

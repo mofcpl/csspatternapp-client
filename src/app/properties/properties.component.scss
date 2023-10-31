@@ -19,6 +19,16 @@
             color: adjust-color($outer-space, $lightness: +45%);
             
             padding: 5px;
+
         }
     }
+
+    ::ng-deep form{
+
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        
+    }
 }
+

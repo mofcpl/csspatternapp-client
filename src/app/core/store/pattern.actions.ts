@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMainProps, IPattern, Type } from "../models/pattern.model";
-import { Linear } from "../models/linear.model";
+import { Line, Linear } from "../models/linear.model";
+import { Radial, Radius } from "../models/radial.model";
 
 export const setMainProp = createAction(
     '[Pattern] Set properties',
@@ -43,5 +44,43 @@ export const switchVisibility = createAction(
     props<{value: { type: Type, index: number }}>()
 )
 
+export const updateLinear = createAction(
+    '[Pattern] Update linear',
+    props<{value: { linear: Linear, index: number}}>()
+)
 
-//trzeba zrobić osobne story i wspólne selektory dla formularzy, formularz zostaje jeden
+export const updateLine = createAction(
+    '[Pattern] Update line',
+    props<{value: {line: Line, linearIndex: number, lineIndex: number}}>()
+)
+
+export const updateRadial = createAction(
+    '[Pattern] Update radial',
+    props<{value: { radial: Radial, index: number}}>()
+)
+
+export const updateRadius = createAction(
+    '[Pattern] Update radius',
+    props<{value: {radius: Radius, radialIndex: number, radiusIndex: number}}>()
+)
+
+export const addLine = createAction(
+    '[Pattern] Add line',
+    props<{value: {linearIndex: number}}>()
+)
+
+export const addRadius = createAction(
+    '[Pattern] Add radius',
+    props<{value: {radialIndex: number}}>()
+)
+
+export const deleteLine = createAction(
+    '[Pattern] Delete line',
+    props<{value: {linearIndex: number, lineIndex: number}}>()
+)
+
+export const deleteRadius = createAction(
+    '[Pattern] Delete radius',
+    props<{value: {radialIndex: number, radiusIndex: number}}>()
+)
+

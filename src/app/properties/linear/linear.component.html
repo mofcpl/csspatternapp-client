@@ -1,31 +1,34 @@
-<div class="control-triger">    
-    <div class="control-name">direction</div>
-    <input type="number" [value]="linear.direction"/>
-</div>
+<form [formGroup]="form">
+    <div class="control-triger">    
+        <div class="control-name">direction</div>
+        <input type="number" formControlName="direction"/>
+    </div>
 
-<div class="control-triger">
-    <div class="control-name">auto-size</div>
-    <input type="checkbox" [checked]="linear.autoSize"/>
-</div>
+    <div class="control-triger">
+        <div class="control-name">auto-size</div>
+        <input type="checkbox" formControlName="autoSize"/>
+    </div>
 
-<div class="control-triger">
-    <div class="control-name">width</div>
-    <input type="number" [value]="linear.width" [disabled]="linear.autoSize"/>
-</div>
+    <div class="control-triger">
+        <div class="control-name">width</div>
+        <input type="number" formControlName="width"/>
+    </div>
 
-<div class="control-triger">
-    <div class="control-name">height</div>
-    <input type="number" [value]="linear.height" [disabled]="linear.autoSize"/>
-</div>
+    <div class="control-triger">
+        <div class="control-name">height</div>
+        <input type="number" formControlName="height"/>
+    </div>
 
-<div class="control-triger">    
-    <div class="control-name">vertical shift(px)</div>
-    <input type="number" [value]="linear.vertical"/>
-</div>
+    <div class="control-triger">    
+        <div class="control-name">vertical shift(px)</div>
+        <input type="number" formControlName="vertical"/>
+    </div>
 
-<div class="control-triger">
-    <div class="control-name">horizontal shift(px)</div>
-    <input type="number" [value]="linear.horizontal"/>
-</div>
+    <div class="control-triger">
+        <div class="control-name">horizontal shift(px)</div>
+        <input type="number" formControlName="horizontal"/>
+    </div>
 
-<button class="control-button">add line</button>
+    <button type="button" class="control-button" (click)="addLine()">add line</button>
+</form>
+

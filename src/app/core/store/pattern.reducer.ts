@@ -1,8 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
-import { IPattern, Type } from "../models/pattern.model";
-import { addLinear, addRadial, clone, select, setMainProp, setPattern, switchGrid, switchVisibility} from "./pattern.actions";
+import { IPattern, ISelected, Type } from "../models/pattern.model";
+import { addLine, addLinear, addRadial, addRadius, clone, deleteLine, deleteRadius, select, setMainProp, setPattern, switchGrid, switchVisibility, updateLine, updateLinear, updateRadial, updateRadius} from "./pattern.actions";
 import { Line, Linear } from "../models/linear.model";
-import { Radial, Ray, Shape, Size } from "../models/radial.model";
+import { Radial, Radius, Shape, Size } from "../models/radial.model";
 
 export const initialState: IPattern = {
     backgroundColor: "#ffffff",
@@ -40,7 +40,7 @@ const defaultLinear: Linear = {
     lines: [defaultLine]
 }
 
-const defaultRay: Ray = {
+const defaultRay: Radius = {
     position: 0, 
     color: "#000000", 
     size: 5, 
@@ -135,6 +135,110 @@ export const patternReducer = createReducer(
                 linears: state.linears.map(changeVisibility)
             }
             default: return state;
+        }
+    }),
+    on(updateLinear, (state, action) => {
+        return {
+            ...state,
+            linears: state.linears.map((element, index) => (index == action.value.index)? action.value.linear : element)
+        }
+    }),
+    on(updateLine, (state, action) => { 
+        return {
+            ...state,
+            linears: state.linears.map((linearElement, index, array) => {
+                if (index == action.value.linearIndex) {
+                    return {
+                        ...linearElement,
+                        lines: linearElement.lines.map((lineElement, index) => (index == action.value.lineIndex)? action.value.line : lineElement)
+                    }
+                } else return linearElement
+            })
+        }
+    }),
+    on(updateRadial, (state, action) => {
+        return {
+            ...state,
+            radials: state.radials.map((element, index) => (index == action.value.index)? action.value.radial : element)
+        }
+    }),
+    on(updateRadius, (state, action) => {
+        return {
+            ...state,
+            radials: state.radials.map((radialElement, index, array) => {
+                if (index == action.value.radialIndex) {
+                    return {
+                        ...radialElement,
+                        rays: radialElement.rays.map((radiusElement, index) => (index == action.value.radiusIndex)? action.value.radius : radiusElement)
+                    }
+                } else return radialElement
+            })
+        }
+    }),
+    on(addLine, (state, action) => {
+        return {
+            ...state,
+            linears: state.linears.map((element, index) => {
+                if(index == action.value.linearIndex)
+                return {
+                    ...element,
+                    lines: [...element.lines, defaultLine]
+                }
+                else return element
+            })
+        }
+    }),
+    on(addRadius, (state, action) => {
+        return {
+            ...state,
+            radials: state.radials.map((element, index) => {
+                if(index == action.value.radialIndex)
+                return {
+                    ...element,
+                    rays: [...element.rays, defaultLine]
+                }
+                else return element
+            })
+        }
+    }),
+    on(deleteLine, (state, action) => {
+        let newLinears: Linear[];
+        if(state.linears[action.value.linearIndex].lines.length > 1) {
+            newLinears = state.linears.map((element, index) => {
+                if(index == action.value.linearIndex)
+                return {
+                    ...element,
+                    lines: element.lines.filter((_, index) => index !== action.value.lineIndex)
+                }
+                else return element
+            })
+        }
+        else {
+            newLinears = state.linears.filter((_, index) => index !== action.value.linearIndex);
+        }
+        return {
+            ...state,
+            linears: newLinears
+        }
+    }),
+    on(deleteRadius, (state, action) => {
+        let newRadials: Radial[];
+        if(state.radials[action.value.radialIndex].rays.length > 1) {
+            newRadials = state.radials.map((element, index) => {
+                if(index == action.value.radialIndex)
+                return {
+                    ...element,
+                    rays: element.rays.filter((_, index) => index !== action.value.radiusIndex)
+                }
+                else return element
+            })
+        }
+        else {
+            newRadials = state.radials.filter((_, index) => index !== action.value.radialIndex);
+        }
+        return {
+            ...state,
+            radials: newRadials
         }
     })
 )

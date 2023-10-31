@@ -10,7 +10,7 @@ export enum Size {
     FarthestSide
 }
 
-export interface Ray {
+export interface Radius {
     position: number,
     color: string,
     size: number,
@@ -30,5 +30,5 @@ export interface Radial {
     horizontal: number,
     visible: boolean,
     grid: boolean,
-    rays: Ray[]
+    rays: Radius[]
 }
