@@ -140,7 +140,7 @@ export const patternReducer = createReducer(
     on(updateLinear, (state, action) => {
         return {
             ...state,
-            linears: state.linears.map((element, index) => (index == action.value.index)? action.value.linear : element)
+            linears: state.linears.map((element, index) => (index == action.value.index)? {...element, ...action.value.linear} : element)
         }
     }),
     on(updateLine, (state, action) => { 
@@ -159,7 +159,7 @@ export const patternReducer = createReducer(
     on(updateRadial, (state, action) => {
         return {
             ...state,
-            radials: state.radials.map((element, index) => (index == action.value.index)? action.value.radial : element)
+            radials: state.radials.map((element, index) => (index == action.value.index)? {...element, ...action.value.radial} : element)
         }
     }),
     on(updateRadius, (state, action) => {

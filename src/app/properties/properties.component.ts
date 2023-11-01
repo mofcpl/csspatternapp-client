@@ -15,10 +15,6 @@ import { addLine, addRadius, deleteLine, deleteRadius, updateLine, updateLinear,
   host: {'class': 'area'}
 })
 export class PropertiesComponent implements OnInit{
-  linears$: Observable<Linear[]>;
-  radials$: Observable<Radial[]>;
-  selected$: Observable<ISelected>;
-  
   list$: Observable<{
     radial: Radial, 
     linear: Linear, 
@@ -29,11 +25,8 @@ export class PropertiesComponent implements OnInit{
   Type = Type;
 
   constructor(private store: Store<{pattern: IPattern}>, private cd: ChangeDetectorRef, private service: PropertiesService) {
-    this.linears$ = store.select(selectLinears);
-    this.radials$ = store.select(selectRadials);
-    this.selected$ = store.select(selectSelected);
 
-    this.list$ = combineLatest([this.linears$, this.radials$, this.selected$]).pipe(
+    this.list$ = combineLatest([store.select(selectLinears), store.select(selectRadials), store.select(selectSelected)]).pipe(
       map(([linears, radials, selected]) => ({
         radial: radials[selected.index],
         linear: linears[selected.index],

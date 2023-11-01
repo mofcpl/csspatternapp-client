@@ -27,6 +27,9 @@ export class ListComponent {
 
   constructor(private store: Store<{pattern: IPattern}>) {
     this.list$ = this.store.select(selectList);
+    this.list$.subscribe((data) => {
+      console.log(data)
+    });
   }
 
   selectLayer(type: Type, index: number) {
