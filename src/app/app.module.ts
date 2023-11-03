@@ -22,6 +22,18 @@ import { patternReducer } from './core/store/pattern.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PatternEffects } from './core/store/pattern.effects';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { PublishComponent } from './publish/publish.component';
+import { ExploreComponent } from './explore/explore.component';
+
+const appRoutes: Routes = [
+  { path: 'signup', component: SignUpComponent },
+  { path: 'signin', component: SignInComponent },
+  { path: 'publish', component: PublishComponent },
+  { path: 'explore', component: ExploreComponent }
+]
 
 @NgModule({
   declarations: [
@@ -40,15 +52,21 @@ import { ReactiveFormsModule } from '@angular/forms';
     LinearComponent,
     RadialComponent,
     LineComponent,
-    RadiusComponent
+    RadiusComponent,
+    SignUpComponent,
+    SignInComponent,
+    PublishComponent,
+    ExploreComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     StoreModule.forRoot({
       pattern: patternReducer
     }),
-    EffectsModule.forRoot([PatternEffects])
+    EffectsModule.forRoot([PatternEffects]),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

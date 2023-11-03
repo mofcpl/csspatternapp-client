@@ -1,8 +1,8 @@
 <div class="card">
     <div class="code-button">
-        <button>Generate CSS</button>
+        <button (click)="generate()">Generate CSS</button>
     </div>
     <div class="code-text">
-        <textarea class="code-output"></textarea>
+        <textarea class="code-output" [value]="code" readonly></textarea>
     </div>
 </div>

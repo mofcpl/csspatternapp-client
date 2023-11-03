@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IMainProps, IPattern } from '../core/models/pattern.model';
+import { IMainProps, IPattern, Type } from '../core/models/pattern.model';
 import { selectBackgroundColor, selectGrid, selectLinears, selectMainProps, selectPropsForGrid, selectRadials } from '../core/store/pattern.selectors';
 import { Observable, combineLatest, map } from 'rxjs';
-import { PreviewService } from './preview.service';
 import { Linear } from '../core/models/linear.model';
-import { Radial } from '../core/models/radial.model';
+import { Radial, Shape, Size } from '../core/models/radial.model';
 import { IPreview } from './preview.model';
+import { UtilsService } from '../core/services/util.service';
 
 @Component({
   selector: 'app-preview',
@@ -22,9 +22,9 @@ export class PreviewComponent {
   grid$: Observable<boolean>;
 
   previewLinears$: Observable<IPreview[]>;
-  //previewRadials$: Observable<IPreview[]>;
+  previewRadials$: Observable<IPreview[]>;
 
-  constructor(private service: PreviewService, private store: Store<{ pattern: IPattern }>) {
+  constructor(private service: UtilsService, private store: Store<{ pattern: IPattern }>) {
 
     this.backgroundColor$ = store.select(selectBackgroundColor);
 
@@ -47,7 +47,13 @@ export class PreviewComponent {
       })
     );
 
-    //this.previewRadials$ = store.select(selectRadials);
+    this.previewRadials$ = combineLatest([store.select(selectRadials), store.select(selectMainProps)]).pipe(
+      map(([radials, props]) => {
+        return radials.map((element) => {
+          return this.prepareRadial(element, props)
+        })
+      })
+    );
 
   }
 
@@ -89,24 +95,97 @@ export class PreviewComponent {
     const width = linear.width * props.zoom;
     const height = linear.height * props.zoom;
 
+    const relativeWidth = (linear.autoSize == true) ? autoWidth : width;
+    const relativeHeight = (linear.autoSize == true) ? autoHeight : height;
+
     let backgroundPosCode = (linear.vertical * props.zoom) + "px " + (linear.horizontal * props.zoom) + "px";
-    let backgroundWidthCode = (linear.autoSize == true) ? autoWidth : width;
-    let backgroundHeightCode = (linear.autoSize == true) ? autoHeight : height;
+    let backgroundWidthCode = relativeWidth;
+    let backgroundHeightCode = relativeHeight;
     let backgroundSizeCode = backgroundWidthCode + "px " + backgroundHeightCode + "px "
 
     const visibility = (linear.visible == true) ? "visible" : "hidden";
+    const grid = (linear.grid)? this.drawGrid(props.width, props.height, props.backgroundColor, props.zoom): null;
 
     return {
-      image: backgroundImageCode, 
-      position: backgroundPosCode, 
-      visibility: visibility, 
-      grid: linear.grid, 
+      image: backgroundImageCode,
+      position: backgroundPosCode,
+      visibility: visibility,
+      gridCode: grid,
       size: backgroundSizeCode
     }
 
   }
 
+  prepareRadial(radial: Radial, props: IMainProps): IPreview {
+    let backgroundImageCode = "";
+    const posType = props.positioning;
 
+    if (props.positioning == "%") {
+      backgroundImageCode += "radial-gradient(" + radial.shape + " " + radial.size + " at " + radial.posx + posType + " " + radial.posy + posType + ", ";
+    }
+    else if (props.positioning == "px") {
+      const posx = radial.posx * props.zoom;
+      const posy = radial.posy * props.zoom;
+      backgroundImageCode += "radial-gradient(" + radial.shape + " " + radial.size + " at " + posx + posType + " " + posy + posType + ", ";
+    }
+
+    radial.rays.map((radius, radiusIndex) => {
+      const color = this.service.hexToRgb(radius.color);
+      const rgbString = "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", " + radius.opacity / 100 + ")";
+
+
+      if (props.positioning == "%") {
+        const vacancyLeft = "transparent " + (radius.position - 1 - radius.blur) + posType;
+        const colorLeft = rgbString + " " + radius.position + posType;
+        const colorRight = rgbString + " " + (radius.position - 1 + radius.size) + posType;
+        const vacancyRight = "transparent " + (radius.position + radius.size + radius.blur) + posType;
+
+        backgroundImageCode += vacancyLeft + ", " + colorLeft + ", " + colorRight + ", " + vacancyRight;
+      }
+      else if (props.positioning == "px") {
+        const position = radius.position * props.zoom;
+        const size = radius.size * props.zoom;
+
+        const vacancyLeft = "transparent " + (position - 1 - radius.blur) + posType;
+        const colorLeft = rgbString + " " + position + posType;
+        const colorRight = rgbString + " " + (position - 1 + size) + posType;
+        const vacancyRight = "transparent " + (position + size + radius.blur) + posType;
+
+        backgroundImageCode += vacancyLeft + ", " + colorLeft + ", " + colorRight + ", " + vacancyRight;
+      }
+      if (radiusIndex < (radial.rays.length - 1)) {
+        backgroundImageCode += ", ";
+      }
+      else {
+        backgroundImageCode += ") ";
+      }
+
+    })
+
+    const autoWidth = props.width * props.zoom;
+    const autoHeight = props.height * props.zoom;
+    const width = radial.width * props.zoom;
+    const height = radial.height * props.zoom;
+
+    const relativeWidth = (radial.autoSize == true) ? autoWidth : width;
+    const relativeHeight = (radial.autoSize == true) ? autoHeight : height;
+
+    let backgroundPosCode = (radial.vertical * props.zoom) + "px " + (radial.horizontal * props.zoom) + "px";
+    let backgroundWidthCode = relativeWidth;
+    let backgroundHeightCode = relativeHeight;
+    let backgroundSizeCode = backgroundWidthCode + "px " + backgroundHeightCode + "px "
+
+    const visibility = (radial.visible == true) ? "visible" : "hidden";
+    const grid = (radial.grid)? this.drawGrid(props.width, props.height, props.backgroundColor, props.zoom): null;
+
+    return {
+      image: backgroundImageCode,
+      position: backgroundPosCode,
+      visibility: visibility,
+      gridCode: grid,
+      size: backgroundSizeCode
+    }
+  }
 
   drawGrid(width: number, height: number, color: string, zoom: number): string {
     const colorRGB = this.service.hexToRgb(color);

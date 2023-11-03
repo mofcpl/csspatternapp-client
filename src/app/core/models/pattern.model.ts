@@ -30,5 +30,5 @@ export interface IMainProps extends IProperties, ISettings { }
 
 export interface IPattern extends IMainProps {
     linears: Linear[],
-    radials: Radial[],
+    radials: Radial[]
 }

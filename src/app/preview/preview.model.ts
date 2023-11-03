@@ -3,6 +3,7 @@ export interface IPreview {
     image: string,
     position: string,
     visibility: string,
-    grid: boolean,
+    gridCode: string | null,
     size: string
+    
 }

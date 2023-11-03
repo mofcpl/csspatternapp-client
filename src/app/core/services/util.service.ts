@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
     providedIn: 'root'
  })
-export class PreviewService {
+export class UtilsService {
     
     //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb/5624139
     hexToRgb(hex: string): number[]

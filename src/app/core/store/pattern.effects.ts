@@ -45,8 +45,8 @@ export class PatternEffects {
             switchMap(([action, list]) => {
                 let isLayerEmpty: boolean = false;
                 switch(action.type) {
-                    case "[Pattern] Delete line": if(list.linears.length < 1) isLayerEmpty = true; break;
-                    case "[Pattern] Delete radius": if(list.radials.length < 1) isLayerEmpty = true; break;
+                    case "[Pattern] Delete line": if(list.linears[action.value.linearIndex].lines.length < 1) isLayerEmpty = true; break;
+                    case "[Pattern] Delete radius": if(list.radials[action.value.radialIndex].rays.length < 1) isLayerEmpty = true; break;
                 }
                 if(isLayerEmpty) return of(select({value: {type: Type.None, index: 0}}))
                 else return of(select({value: list.selected}))

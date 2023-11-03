@@ -1,13 +1,13 @@
 export enum Shape {
-    Ellipse,
-    Circle
+    Ellipse = "ellipse",
+    Circle = "circle"
 }
 
 export enum Size {
-    FarthestCorner,
-    ClosestSide,
-    ClosestCorner,
-    FarthestSide
+    FarthestCorner = "farthest-corner",
+    ClosestSide = "closest-side",
+    ClosestCorner = "closest-corner",
+    FarthestSide = "farthest-side"
 }
 
 export interface Radius {
