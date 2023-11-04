@@ -1,21 +1,16 @@
-<form>
-    <p>
-        <label>name</label>
-        <input type="text">
-    </p>
-    <p>
-        <label>email</label>
-        <input type="email" required>
-    </p>
-    <p>
-        <label>password</label>
-        <input type="password" required>
-    </p>
-    <p>
-        <label>repeat password</label>
-        <input type="password" required>
-    </p>
+<div id="explore" class="window">
+    <div id="sort">
+        <div>
+            <div>sort by</div>
+            <select type="text" list="types">
+                <option>most popular</option>
+                <option>newest</option>
+                <option>alphabetic</option>
+            </select>
+        </div>
+        
+    </div>
+    <div class="content" id="projects"></div>
+    <button type="button" (click)="cancel">cancel</button>  
+</div>
 
-    <button type="submit">Sign up</button>
-    <button >cancel</button>
-</form>

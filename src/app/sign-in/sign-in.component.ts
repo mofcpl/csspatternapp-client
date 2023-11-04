@@ -1,10 +1,16 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'sign-in',
+    selector: 'app-sign-in',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss'],
+    host: {'class': 'container-window'}
   })
 export class SignInComponent {
-    
+  constructor(private router: Router) {}
+
+  cancel() {
+    this.router.navigate([''])
+  }
 }

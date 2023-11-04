@@ -22,18 +22,14 @@ import { patternReducer } from './core/store/pattern.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PatternEffects } from './core/store/pattern.effects';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { PublishComponent } from './publish/publish.component';
 import { ExploreComponent } from './explore/explore.component';
-
-const appRoutes: Routes = [
-  { path: 'signup', component: SignUpComponent },
-  { path: 'signin', component: SignInComponent },
-  { path: 'publish', component: PublishComponent },
-  { path: 'explore', component: ExploreComponent }
-]
+import { MainComponent } from './main/main.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AccountComponent } from './account/account.component';
+import { AuthGuard } from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -56,19 +52,21 @@ const appRoutes: Routes = [
     SignUpComponent,
     SignInComponent,
     PublishComponent,
-    ExploreComponent
+    ExploreComponent,
+    MainComponent,
+    AccountComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     StoreModule.forRoot({
       pattern: patternReducer
     }),
     EffectsModule.forRoot([PatternEffects]),
 
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
