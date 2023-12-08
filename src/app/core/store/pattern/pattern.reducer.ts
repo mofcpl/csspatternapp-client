@@ -1,8 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
-import { IPattern, ISelected, Type } from "../models/pattern.model";
-import { addLine, addLinear, addRadial, addRadius, clone, deleteLine, deleteRadius, select, setMainProp, setPattern, switchGrid, switchVisibility, updateLine, updateLinear, updateRadial, updateRadius} from "./pattern.actions";
-import { Line, Linear } from "../models/linear.model";
-import { Radial, Radius, Shape, Size } from "../models/radial.model";
+import { IPattern, ISelected, Type } from "../../models/pattern.model";
+import { addLine, addLinear, addRadial, addRadius, clone, deleteLine, deleteRadius, methodFail, publishPatternStart, publishPatternSuccess, select, setMainProp, setPattern, switchGrid, switchVisibility, updateLine, updateLinear, updateRadial, updateRadius} from "./pattern.actions";
+import { Line, Linear } from "../../models/linear.model";
+import { Radial, Radius, Shape, Size } from "../../models/radial.model";
 
 export const initialState: IPattern = {
     backgroundColor: "#ffffff",
@@ -17,7 +17,11 @@ export const initialState: IPattern = {
     selected: {
         type: Type.None,
         index: 0
-    }
+    },
+    id: null,
+    isLoading: false,
+    errors: null,
+    success: false
 }
 
 const defaultLine: Line = {
@@ -239,6 +243,27 @@ export const patternReducer = createReducer(
         return {
             ...state,
             radials: newRadials
+        }
+    }),
+    //Do wywalenia stąd
+    on(publishPatternStart, (state, action) => {
+        return {
+            ...state,
+            success: false,
+            isLoading: true
+        }
+    }),
+    on(methodFail, (state, action) => {
+        return {
+            ...state,
+            isLoading: false,
+            errors: action.value
+        }
+    }),
+    on(publishPatternSuccess, (state, action) => {
+        return {
+            ...state,
+            success: true
         }
     })
 )

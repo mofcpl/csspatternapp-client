@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { confirmEmailValidator } from "./confirmEmail.validator";
 import { confirmPasswordValidator } from "./confirmPassword.validator";
+import { Store } from "@ngrx/store";
+import { authState } from "../core/store/auth/auth.reducer";
+import { signupStart } from "../core/store/auth/auth.actions";
+import { Observable, map } from "rxjs";
+import { selectErrors, selectLoadingStatus, selectSignupStatus } from "../core/store/auth/auth.selectors";
+import { registerError } from "../core/models/user.model";
 
 @Component({
     selector: 'app-sign-up',
@@ -12,8 +18,11 @@ import { confirmPasswordValidator } from "./confirmPassword.validator";
   })
 export class SignUpComponent {
   form: FormGroup;
+  isLoading$: Observable<boolean>;
+  isSuccess$: Observable<boolean>
+  errors: string[] = [];
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private store: Store<{auth: authState}>) {
     this.form = formBuilder.group({
       username: ['', {validators:[Validators.required]}],
       email: ['', {validators:[Validators.required, Validators.email]}],
@@ -24,9 +33,14 @@ export class SignUpComponent {
     { validators: [confirmEmailValidator, confirmPasswordValidator]}
     )
 
-    this.form.valueChanges.subscribe((form) =>
-    {
-      console.log(form)
+    store.select(selectErrors).subscribe( (errorsObject) => {
+      if(errorsObject) this.errors = Object.values(errorsObject);
+    })
+    this.isSuccess$ = store.select(selectSignupStatus);
+    this.isLoading$ = store.select(selectLoadingStatus);
+    this.isLoading$.subscribe( (isLoading) => {
+      if(isLoading) this.form.disable();
+      else this.form.enable();
     })
   }
 
@@ -34,8 +48,12 @@ export class SignUpComponent {
     this.router.navigate([''])
   }
 
-  submit() {
-    console.log(this.form)
+  submit() { 
+    this.store.dispatch(signupStart({value: {
+      name: this.form.value.username,
+      email: this.form.value.email,
+      password: this.form.value.password
+    }}))
   }
     
 }

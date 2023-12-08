@@ -1,14 +1,22 @@
 <div class="window">
-    <form>
+    <form [formGroup]="form">
         <p>
             <label>email</label>
-            <input type="email" required>
+            <input type="email" formControlName="email">
         </p>
+        <ng-container *ngIf="!form.get('email')?.valid && form.get('email')?.dirty">
+            <p class="warning" *ngIf="form.get('email')?.errors?.['required']">email is required</p>
+            <p class="warning" *ngIf="form.get('email')?.errors?.['email']">email is incorrect</p>
+        </ng-container>
         <p>
             <label>password</label>
-            <input type="password" required>
+            <input type="password" formControlName="password">
         </p>
-        <button type="submit">Sign in</button>
+        <ng-container *ngIf="!form.get('password')?.valid && form.get('password')?.dirty">
+            <p class="warning" *ngIf="form.get('password')?.errors?.['required']">password is required</p>
+        </ng-container>
+        <p class="warning" *ngFor="let error of errors; index as i">{{error}}</p>
+        <button type="submit" (click)="submit()">Sign in</button>
         <button type="button" (click)="cancel()">cancel</button>
         </form>
 </div>

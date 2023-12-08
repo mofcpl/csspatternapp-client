@@ -1,5 +1,5 @@
 <div id="explore" class="window">
-    <div id="sort">
+    <!--<div id="sort">
         <div>
             <div>sort by</div>
             <select type="text" list="types">
@@ -8,9 +8,16 @@
                 <option>alphabetic</option>
             </select>
         </div>
-        
+    </div> -->
+    <div class="content" id="projects">
+        <ng-container *ngIf="list$ | async as list">
+            <div *ngFor="let project of list" class="preview" [ngStyle]="project.style">
+                <div (click)="load(project.data)">
+                    <h2>{{project.title}}</h2>
+                </div>
+            </div>
+        </ng-container>
     </div>
-    <div class="content" id="projects"></div>
-    <button type="button" (click)="cancel">cancel</button>  
+    <button type="button" (click)="cancel()">cancel</button>
 </div>
 

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IPattern } from "../core/models/pattern.model";
 import { UtilsService } from "../core/services/util.service";
+import { style } from "../core/services/api.service";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ export class CodeService {
 
     constructor(private utils: UtilsService) {}
 
-    generateCode(pattern: IPattern): string {
+    generateCode(pattern: IPattern): style {
         let backgroundImageCode = "";
         let backgroundPosCode = "";
         let backgroundSizeCode = "";
@@ -138,14 +139,9 @@ export class CodeService {
         }
         
         
-        let repeat = '';
+        let repeat = 'repeat';
         
-        if(pattern.repeat == true)
-        {
-          //repeat = "repeat";
-            repeat = ""; //optimization
-        }
-        else
+        if(pattern.repeat == false)
         {
             repeat = "no-repeat";
         }
@@ -153,11 +149,20 @@ export class CodeService {
         //background-size code optimization
         const tempBackgroundSizeCode = (sameBackgroundSize) ? prevBackgroundSize : backgroundSizeCode;
 
-        return `background-image: ${backgroundImageCode};
-background-position: ${backgroundPosCode};
-background-color: ${pattern.backgroundColor};
-background-size: ${tempBackgroundSizeCode};
-background-repeat: ${repeat};`
+//         return `background-image: ${backgroundImageCode};
+// background-position: ${backgroundPosCode};
+// background-color: ${pattern.backgroundColor};
+// background-size: ${tempBackgroundSizeCode};
+// background-repeat: ${repeat};`
+//     }
+
+        return {
+            "background-image": backgroundImageCode,
+            "background-position": backgroundPosCode,
+            "background-color": pattern.backgroundColor,
+            "background-size": tempBackgroundSizeCode,
+            "background-repeat": repeat
+        }
     }
 
 }

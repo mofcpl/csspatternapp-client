@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IPattern } from 'src/app/core/models/pattern.model';
-import { addLinear, addRadial, clone } from 'src/app/core/store/pattern.actions';
+import { addLinear, addRadial, clone } from 'src/app/core/store/pattern/pattern.actions';
 
 @Component({
   selector: 'app-buttons',

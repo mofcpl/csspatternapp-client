@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { init } from './core/store/pattern.actions';
+import { loadPattern } from './core/store/pattern/pattern.actions';
+import { loadAuth } from './core/store/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit{
   constructor (private store: Store) {}
 
   ngOnInit() {
-    this.store.dispatch(init());
+    this.store.dispatch(loadPattern());
+    this.store.dispatch(loadAuth());
   }
 }

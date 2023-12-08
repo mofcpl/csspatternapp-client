@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IMainProps, IPattern, Type } from '../core/models/pattern.model';
-import { selectBackgroundColor, selectGrid, selectLinears, selectMainProps, selectPropsForGrid, selectRadials } from '../core/store/pattern.selectors';
+import { selectBackgroundColor, selectGrid, selectLinears, selectMainProps, selectPropsForGrid, selectRadials } from '../core/store/pattern/pattern.selectors';
 import { Observable, combineLatest, map } from 'rxjs';
 import { Linear } from '../core/models/linear.model';
 import { Radial, Shape, Size } from '../core/models/radial.model';

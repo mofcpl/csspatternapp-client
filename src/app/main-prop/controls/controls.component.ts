@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, map, tap } from 'rxjs';
 import { IMainProps, IPattern } from 'src/app/core/models/pattern.model';
-import { setMainProp } from 'src/app/core/store/pattern.actions';
-import { selectMainProps } from 'src/app/core/store/pattern.selectors';
+import { setMainProp } from 'src/app/core/store/pattern/pattern.actions';
+import { selectMainProps } from 'src/app/core/store/pattern/pattern.selectors';
 
 @Component({
   selector: 'app-controls',

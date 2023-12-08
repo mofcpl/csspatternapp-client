@@ -18,9 +18,9 @@ import { RadialComponent } from './properties/radial/radial.component';
 import { LineComponent } from './properties/line/line.component';
 import { RadiusComponent } from './properties/radius/radius.component';
 import { StoreModule } from '@ngrx/store';
-import { patternReducer } from './core/store/pattern.reducer';
+import { patternReducer } from './core/store/pattern/pattern.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { PatternEffects } from './core/store/pattern.effects';
+import { PatternEffects } from './core/store/pattern/pattern.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -30,6 +30,11 @@ import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './auth-guard.service';
+import { authReducer } from './core/store/auth/auth.reducer';
+import { AuthEffects } from './core/store/auth/auth.effects';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component';
+import { AuthInterceptorService } from './core/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -54,19 +59,25 @@ import { AuthGuard } from './auth-guard.service';
     PublishComponent,
     ExploreComponent,
     MainComponent,
-    AccountComponent
+    AccountComponent,
+    LogoutComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({
-      pattern: patternReducer
+      pattern: patternReducer,
+      auth: authReducer
     }),
-    EffectsModule.forRoot([PatternEffects]),
+    EffectsModule.forRoot([PatternEffects, AuthEffects]),
 
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard, 
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi : true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

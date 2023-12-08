@@ -1,7 +1,7 @@
 import { createSelector } from "@ngrx/store";
-import { IPattern, IProperties, ISettings, Type} from "../models/pattern.model";
-import { Radial } from "../models/radial.model";
-import { Linear } from "../models/linear.model";
+import { IPattern, IProperties, ISettings, Type} from "../../models/pattern.model";
+import { Radial } from "../../models/radial.model";
+import { Linear } from "../../models/linear.model";
 
 export const selectBackgroundColor = (state: {pattern: IPattern}) => state.pattern.backgroundColor;
 
@@ -16,6 +16,12 @@ export const selectLinears = (state: {pattern: IPattern}) => state.pattern.linea
 export const selectSelected = (state: {pattern: IPattern}) => state.pattern.selected;
 
 export const selectPattern = (state: {pattern: IPattern}) => state.pattern;
+
+export const selectIsLoading = (state: {pattern: IPattern}) => state.pattern.isLoading;
+
+export const selectPatternErrors = (state: {pattern: IPattern}) => state.pattern.errors;
+
+export const selectPatternSuccess = (state: {pattern: IPattern}) => state.pattern.success;
 
 export const selectPatternSize = (state: {pattern: IPattern}) => {
     return { 

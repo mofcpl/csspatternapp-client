@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IPattern } from '../core/models/pattern.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectPattern } from '../core/store/pattern.selectors';
+import { selectPattern } from '../core/store/pattern/pattern.selectors';
 import { CodeService } from './code.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class CodeComponent {
   }
 
   generate() {
-    this.code = this.service.generateCode(this.pattern);
+    this.code = JSON.stringify(this.service.generateCode(this.pattern));
   }
 
 }

@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IPattern, ISelected, Type } from '../core/models/pattern.model';
 import { Observable, combineLatest, map } from 'rxjs';
-import { selectLinears, selectRadials, selectSelected } from '../core/store/pattern.selectors';
+import { selectLinears, selectRadials, selectSelected } from '../core/store/pattern/pattern.selectors';
 import { Linear } from '../core/models/linear.model';
 import { Radial } from '../core/models/radial.model';
 import { PropertiesService } from './properties.service';
-import { addLine, addRadius, deleteLine, deleteRadius, updateLine, updateLinear, updateRadial, updateRadius } from '../core/store/pattern.actions';
+import { addLine, addRadius, deleteLine, deleteRadius, updateLine, updateLinear, updateRadial, updateRadius } from '../core/store/pattern/pattern.actions';
 
 @Component({
   selector: 'app-properties',

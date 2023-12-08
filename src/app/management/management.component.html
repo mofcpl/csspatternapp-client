@@ -1,4 +1,9 @@
 <a routerLink="/explore">Explore projects</a>
 <a routerLink="/publish">Publish project</a>
-<a routerLink="/signin">Sign in</a>
-<a routerLink="/signup">Sign up</a>
+
+<a *ngIf="user$ | async; else signinBlock" routerLink="/account">Account</a>
+<ng-template #signinBlock><a routerLink="/signin">Sign in</a></ng-template>
+
+
+<a *ngIf="user$ | async; else signupBlock" routerLink="/signout">Sign out</a>
+<ng-template #signupBlock><a routerLink="/signup">Sign up</a></ng-template>

@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { IMainProps, IPattern, Type } from "../models/pattern.model";
-import { Line, Linear } from "../models/linear.model";
-import { Radial, Radius } from "../models/radial.model";
+import { IMainProps, IPattern, Type, publishError } from "../../models/pattern.model";
+import { Line, Linear } from "../../models/linear.model";
+import { Radial, Radius } from "../../models/radial.model";
 
 export const setMainProp = createAction(
     '[Pattern] Set properties',
@@ -13,8 +13,8 @@ export const setPattern = createAction(
     props<{value: IPattern}>()
 )
 
-export const init = createAction(
-    '[Pattern] Init'
+export const loadPattern = createAction(
+    '[Pattern] Load from storage'
 )
 
 export const addLinear = createAction(
@@ -84,3 +84,16 @@ export const deleteRadius = createAction(
     props<{value: {radialIndex: number, radiusIndex: number}}>()
 )
 
+export const publishPatternStart = createAction(
+    '[Pattern] Publish pattern start',
+    props<{value: {name: string}}>()
+)
+
+export const publishPatternSuccess = createAction(
+    '[Pattern] Publish pattern success'
+)
+
+export const methodFail = createAction(
+    '[Auth] Login Fail',
+    props<{value: publishError}>()
+)

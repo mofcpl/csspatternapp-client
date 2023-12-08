@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IPattern } from '../core/models/pattern.model';
 import { Store } from '@ngrx/store';
-import { selectList } from '../core/store/pattern.selectors';
+import { selectList } from '../core/store/pattern/pattern.selectors';
 import { Radial } from '../core/models/radial.model';
 import { Observable } from 'rxjs';
 import { Linear } from '../core/models/linear.model';
 import { Type } from '../core/models/pattern.model';
-import { select, switchGrid, switchVisibility } from '../core/store/pattern.actions';
+import { select, switchGrid, switchVisibility } from '../core/store/pattern/pattern.actions';
 
 @Component({
   selector: 'app-list',
@@ -27,6 +27,9 @@ export class ListComponent {
 
   constructor(private store: Store<{pattern: IPattern}>) {
     this.list$ = this.store.select(selectList);
+    this.list$.subscribe( (elem) => {
+      console.log(elem)
+    })
   }
 
   selectLayer(type: Type, index: number) {
