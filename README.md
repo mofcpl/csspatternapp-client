@@ -4,7 +4,7 @@ This project is an application designed to generate graphic patterns through CSS
 
 ## Requirements
 
-Node.js is required for the development environment, with a minimum supported version of 18.10.0. This version is necessary due to to Angular requirements.
+Node.js is required for the development environment, with a minimum supported version of 18.10.0. This version is necessary due to Angular requirements.
 
 ## Installation
 
