@@ -4,6 +4,7 @@ import { Observable, exhaustMap, take } from "rxjs";
 import { selectUser } from "../store/auth/auth.selectors";
 import { authState } from "../store/auth/auth.reducer";
 import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
@@ -13,7 +14,8 @@ export class AuthInterceptorService implements HttpInterceptor {
         return this.store.select(selectUser).pipe(
             exhaustMap((user) => {
                 let requestWithToken;
-                if(user && user.token && !(req.method == "GET" || (req.method == "POST" && req.url=="http://127.0.0.1:8080/author"))) {
+                const url = environment.api + "author";
+                if(user && user.token && !(req.method == "GET" || (req.method == "POST" && req.url==url))) {
                     requestWithToken = req.clone({
                         setHeaders: {
                             Authorization: "Bearer " + user.token

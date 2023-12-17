@@ -8,6 +8,7 @@ import { initialState } from "./pattern.reducer";
 import { selectLinears, selectList, selectPattern, selectRadials, selectSelected } from "./pattern.selectors";
 import { HttpClient } from "@angular/common/http";
 import { CodeService } from "src/app/code/code.service";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class PatternEffects {
@@ -66,10 +67,10 @@ export class PatternEffects {
             ofType(publishPatternStart),
             withLatestFrom(this.store.select(selectPattern)),
             switchMap(([action, pattern]) => {
-                return this.http.post<any>("http://127.0.0.1:8080/project", {
+                return this.http.post<any>(environment.api + "project", {
                     title: action.value.name,
                     data: JSON.stringify(pattern),
-                    style: this.codeService.generateCode(pattern)
+                    style: JSON.stringify(this.codeService.generateCode(pattern))
                 })
                 .pipe(
                     map( () => publishPatternSuccess()),

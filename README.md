@@ -1,27 +1,47 @@
-# Csspatternapp
+# CSSPatternApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+This project is an application designed to generate graphic patterns through CSS code, utilizing hard stops in gradients. It organizes patterns into layers, aiding users in efficient idea management. The platform also allows users to share and explore projects created by others.
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Node.js is required for the development environment, with a minimum supported version of 18.10.0. This version is necessary due to to Angular requirements.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Clone this repository
+```bash
+git clone https://github.com/mofcpl/aircheck-client.git
+```
 
-## Build
+### Install dependencies
+```bash
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Run development server
+```bash
+ng serve
+```
 
-## Running unit tests
+For some features, an API service must be running. Refer to [csspatternapp-server](https://github.com/mofcpl/csspatternapp-server) for instructions.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Technologies
 
-## Running end-to-end tests
+* Angular 16
+* RxJS 7
+* NgRx 16
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Contributing
 
-## Further help
+1. Clone the repository and make a new branch from develop.
+2. Make changes.
+3. Open a Pull Request with a comprehensive description of changes.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+We use the Git Flow branching model for development.
+
+## Notes
+
+CSSPatternApp is a continuation of the earlier project, [CSSPatternApp](https://github.com/mofcpl/CSSPatternApp), which was developed in a different technology stack.
+
+
+

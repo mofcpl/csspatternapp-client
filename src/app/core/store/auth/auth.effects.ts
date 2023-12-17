@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 import { User, registerError } from "../../models/user.model";
 import { Router } from "@angular/router";
 import { selectUser } from "./auth.selectors";
+import { environment } from "src/environments/environment";
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(signupStart),
       mergeMap((action) => {
-        return this.http.post<null>('http://127.0.0.1:8080/author', {
+        return this.http.post<null>(environment.api + 'author', {
           email: action.value.email,
           password: action.value.password,
           name: action.value.name
@@ -39,7 +40,7 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(signinStart),
       exhaustMap((action) => {
-        return this.http.post<User>('http://127.0.0.1:8080/auth', {
+        return this.http.post<User>(environment.api + 'auth', {
           email: action.value.email,
           password: action.value.password,
         })
@@ -69,7 +70,7 @@ export class AuthEffects {
       ofType(userPatchStart),
       withLatestFrom(this.store.select(selectUser)),
       switchMap(([action, user]) => {
-        return this.http.patch<null>(`http://127.0.0.1:8080/author/${user?.id}`,
+        return this.http.patch<null>(environment.api + `author/${user?.id}`,
           //Remove empty attributes
           Object.fromEntries(Object.entries(action.value).filter(([_, v]) => v != null)))
           .pipe(

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { IMainProps, IPattern } from "../models/pattern.model";
+import { environment } from "src/environments/environment";
 
 export interface style {
     "background-image": string,
@@ -54,7 +55,7 @@ export class ApiService {
     }
 
     getAllProjects(): Observable<IProject[]> {
-        return this.http.get<ProjectsResponse[]>("http://127.0.0.1:8080/project").pipe(
+        return this.http.get<ProjectsResponse[]>(environment.api + "project").pipe(
             map( (result) => {
                 const parsedResponse = result.map((value, index) => {
                     return new IProject(value.id, value.author, value.title, value.publishDate, value.data, value.style, value.downloads)
