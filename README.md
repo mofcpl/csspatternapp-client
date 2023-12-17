@@ -10,7 +10,7 @@ Node.js is required for the development environment, with a minimum supported ve
 
 ### Clone this repository
 ```bash
-git clone https://github.com/mofcpl/aircheck-client.git
+git clone https://github.com/mofcpl/csspatternapp-client.git
 ```
 
 ### Install dependencies
