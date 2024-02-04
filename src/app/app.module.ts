@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -35,6 +35,7 @@ import { AuthEffects } from './core/store/auth/auth.effects';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthInterceptorService } from './core/services/auth-interceptor.service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AuthInterceptorService } from './core/services/auth-interceptor.service
       auth: authReducer
     }),
     EffectsModule.forRoot([PatternEffects, AuthEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
 
   ],
   providers: [
