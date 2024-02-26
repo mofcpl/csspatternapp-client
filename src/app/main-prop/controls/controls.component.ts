@@ -1,10 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, map, tap } from 'rxjs';
-import { IMainProps, IPattern } from 'src/app/core/models/pattern.model';
-import { setMainProp } from 'src/app/core/store/pattern/pattern.actions';
-import { selectMainProps } from 'src/app/core/store/pattern/pattern.selectors';
+import { Observable} from 'rxjs';
+import { ApplicationState } from 'src/app/core/models/applicationState.model';
+import { IPattern, Positioning } from 'src/app/core/models/pattern.model';
+import { setGrid, setRepeat, setZoom } from 'src/app/core/store/app/app.actions';
+import { selectGrid, selectRepeat, selectZoom } from 'src/app/core/store/app/app.selectors';
+import { setBackgroundColor, setHeight, setPositioning, setWidth } from 'src/app/core/store/pattern/pattern.actions';
+import { selectBackgroundColor, selectHeight, selectPositioning, selectWidth } from 'src/app/core/store/pattern/pattern.selectors';
+
+export enum Property {
+  BackgroundColor,
+  Width,
+  Height,
+  Positioning,
+  Grid,
+  Repeat,
+  Zoom
+}
 
 @Component({
   selector: 'app-controls',
@@ -12,30 +24,47 @@ import { selectMainProps } from 'src/app/core/store/pattern/pattern.selectors';
   styleUrls: ['./controls.component.scss']
 })
 export class ControlsComponent implements OnInit, OnDestroy {
-  form: FormGroup;
-  mainProps$: Observable<IMainProps>;
+  Property = Property
 
-  constructor(private formBuilder: FormBuilder, private store: Store<{pattern: IPattern}>) {
-    this.form = formBuilder.group({
-      backgroundColor: [''],
-      width: [''],
-      height: [''],
-      positioning: [''],
-      zoom: [''],
-      grid: [''],
-      repeat: [''],
-    });
-    this.mainProps$ = store.select(selectMainProps);
-    this.mainProps$.subscribe(data => this.form.patchValue(data, {emitEvent: false}));
+  backgroundColor$: Observable<string>;
+  width$: Observable<number>;
+  height$: Observable<number>;
+  positioning$: Observable<Positioning>;
+
+  grid$: Observable<boolean>;
+  repeat$: Observable<boolean>;
+  zoom$: Observable<number>;
+
+  constructor(private store: Store<{pattern: IPattern, app: ApplicationState}>) {
+    this.backgroundColor$ = store.select(selectBackgroundColor);
+    this.width$ = store.select(selectWidth);
+    this.height$ = store.select(selectHeight);
+    this.positioning$ = store.select(selectPositioning);
+
+    this.grid$ = store.select(selectGrid)
+    this.repeat$ = store.select(selectRepeat)
+    this.zoom$ = store.select(selectZoom)
   }
 
   ngOnInit() {
-    this.form.valueChanges.subscribe(
-      (value: IMainProps) => this.store.dispatch(setMainProp({value}))
-    )
+    
   }
 
   ngOnDestroy() {
     
   }
+
+  changeProperties(event: any, property: Property) {
+    switch(property) {
+      case Property.BackgroundColor: this.store.dispatch(setBackgroundColor({payload: event.target.value})); break;
+      case Property.Width: this.store.dispatch(setWidth({payload: event.target.value})); break;
+      case Property.Height: this.store.dispatch(setHeight({payload: event.target.value})); break;
+      case Property.Positioning: this.store.dispatch(setPositioning({payload: event.target.value})); break;
+      
+      case Property.Grid: this.store.dispatch(setGrid({payload: event.target.value})); break;
+      case Property.Repeat: this.store.dispatch(setRepeat({payload: event.target.value})); break;
+      case Property.Zoom: this.store.dispatch(setZoom({payload: event.target.value})); break;
+    }
+  }
+
 }

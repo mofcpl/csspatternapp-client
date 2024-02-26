@@ -1,19 +1,5 @@
-export interface Line {
-    position: number,
-    color: string,
-    size: number,
-    opacity: number,
-    blur: number
-}
+import { Layer } from "./layer.model";
 
-export interface Linear {
-    direction: number,
-    width: number,
-    height: number,
-    autoSize: boolean,
-    vertical: number,
-    horizontal: number,
-    visible: boolean,
-    grid: boolean,
-    lines: Line[]
+export interface Linear extends Layer {
+    direction: number;
 }
