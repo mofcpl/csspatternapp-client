@@ -10,7 +10,7 @@ import { MainPropComponent } from './main-prop/main-prop.component';
 // import { ManagementComponent } from './management/management.component';
 // import { PreviewComponent } from './preview/preview.component';
 // import { PropertiesComponent } from './properties/properties.component';
-// import { ListComponent } from './list/list.component';
+import { ListComponent } from './list/list.component';
 import { ButtonsComponent } from './main-prop/buttons/buttons.component';
 import { ControlsComponent } from './main-prop/controls/controls.component';
 // import { LinearComponent } from './properties/linear/linear.component';
@@ -36,6 +36,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './core/services/auth-interceptor.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './core/store/app/app.reducer';
+import { LetDirective } from '@ngrx/component';
+import { PatternEffect } from './core/store/pattern/pattern.effects';
+import { TypeNameComponent } from './shared/type-name/type-name.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,7 @@ import { appReducer } from './core/store/app/app.reducer';
     // ManagementComponent,
     // PreviewComponent,
     // PropertiesComponent,
-    // ListComponent,
+    ListComponent,
     ButtonsComponent,
     ControlsComponent,
     // LinearComponent,
@@ -60,10 +63,12 @@ import { appReducer } from './core/store/app/app.reducer';
     //PublishComponent,
     // ExploreComponent,
     MainComponent,
+    TypeNameComponent,
     // AccountComponent,
     // LogoutComponent
   ],
   imports: [
+    LetDirective,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -73,7 +78,7 @@ import { appReducer } from './core/store/app/app.reducer';
       auth: authReducer,
       app: appReducer
     }),
-    //EffectsModule.forRoot([PatternEffects, AuthEffects]),
+    EffectsModule.forRoot([PatternEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
 
   ],

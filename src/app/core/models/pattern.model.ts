@@ -1,5 +1,6 @@
 import { EntityState } from "@ngrx/entity";
 import { Layer } from "./layer.model";
+import { ColorStop } from "./colorStop.model";
 
 export enum Positioning {
     Relative = "%",
@@ -12,5 +13,7 @@ export interface IPattern {
     height: number;
     positioning: Positioning;
     layers: EntityState<Layer>;
+    colorStops: EntityState<ColorStop[]>;
+    grid: boolean;
 }
 

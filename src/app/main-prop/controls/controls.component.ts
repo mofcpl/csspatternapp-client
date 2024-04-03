@@ -4,9 +4,9 @@ import { Observable} from 'rxjs';
 import { ApplicationState } from 'src/app/core/models/applicationState.model';
 import { IPattern, Positioning } from 'src/app/core/models/pattern.model';
 import { setGrid, setRepeat, setZoom } from 'src/app/core/store/app/app.actions';
-import { selectGrid, selectRepeat, selectZoom } from 'src/app/core/store/app/app.selectors';
+import { selectRepeat, selectZoom } from 'src/app/core/store/app/app.selectors';
 import { setBackgroundColor, setHeight, setPositioning, setWidth } from 'src/app/core/store/pattern/pattern.actions';
-import { selectBackgroundColor, selectHeight, selectPositioning, selectWidth } from 'src/app/core/store/pattern/pattern.selectors';
+import { selectBackgroundColor, selectHeight, selectMainGrid, selectPositioning, selectWidth } from 'src/app/core/store/pattern/pattern.selectors';
 
 export enum Property {
   BackgroundColor,
@@ -41,7 +41,7 @@ export class ControlsComponent implements OnInit, OnDestroy {
     this.height$ = store.select(selectHeight);
     this.positioning$ = store.select(selectPositioning);
 
-    this.grid$ = store.select(selectGrid)
+    this.grid$ = store.select(selectMainGrid)
     this.repeat$ = store.select(selectRepeat)
     this.zoom$ = store.select(selectZoom)
   }

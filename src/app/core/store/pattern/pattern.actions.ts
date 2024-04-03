@@ -20,3 +20,13 @@ export const setPositioning = createAction(
     '[Properties] Change pattern positioning',
     props<{payload: Positioning}>()
 )
+
+export const addLinear = createAction(
+    '[Buttons] Add new linear layer',
+    props<{payload: string}>()
+)
+
+export const addRadial = createAction(
+    '[Buttons] Add new radial layer',
+    props<{payload: string}>()
+)

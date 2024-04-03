@@ -1,3 +1,5 @@
-<button (click)="addLinear()" class="control-button">add linear</button>
-<button (click)="addRadial()" class="control-button">add radial</button>
+<button (click)="openAddLinearForm()" class="control-button">add linear</button>
+<button (click)="openAddRadialForm()" class="control-button">add radial</button>
 <button (click)="clone()" class="control-button">clone</button>
+
+<app-type-name *ngIf="isnamePopupOpen" (close)="popupClose($event)" (name)="addLayer($event)"></app-type-name>

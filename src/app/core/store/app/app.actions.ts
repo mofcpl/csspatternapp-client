@@ -14,3 +14,13 @@ export const setRepeat = createAction(
     '[Properties] Change settings repeat',
     props<{payload: boolean}>()
 )
+
+export const selectLayer = createAction(
+    '[List] Select layer',
+    props<{payload: number}>()
+)
+
+export const addLayer = createAction(
+    '[Pattern effect] Add new layer',
+    props<{payload: string}>()
+)

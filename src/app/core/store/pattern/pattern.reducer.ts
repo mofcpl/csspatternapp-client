@@ -1,15 +1,16 @@
 import { createEntityAdapter } from "@ngrx/entity";
-import { Layer, ColorStops } from "../../models/layer.model";
+import { Layer } from "../../models/layer.model";
 import { Linear } from "../../models/linear.model";
 import { IPattern, Positioning } from "../../models/pattern.model";
 import { Radial, Shape, Size } from "../../models/radial.model";
 import { createReducer, on } from "@ngrx/store";
 import { PatternActions } from "../../action-types";
+import { ColorStop } from "../../models/colorStop.model";
 
-export const layerAdapter = createEntityAdapter<Layer>();
-export const colorStopsAdapter = createEntityAdapter<ColorStops>();
+export const layerAdapter = createEntityAdapter<Layer>({selectId: (layer: Layer) => layer.name});
+export const colorStopsAdapter = createEntityAdapter<ColorStop[]>();
 
-const defalutColorStop: ColorStops = {
+const defalutColorStop: ColorStop = {
     position: 0,
     color: "#000",
     size: 5,
@@ -24,20 +25,24 @@ const defaultLinear: Linear = {
     height: 0,
     vertical: 0,
     horizontal: 0,
-    stops: colorStopsAdapter.getInitialState(defalutColorStop)
+    visible: true,
+    grid: false,
+    name: ""
 }
 
 const defaultRadial: Radial = {
     shape: Shape.Ellipse,
     size: Size.FarthestCorner,
-    posx: 0,
-    posy: 0,
-    autoSize: false,
+    posx: 50,
+    posy: 50,
+    autoSize: true,
     width: 0,
     height: 0,
     vertical: 0,
     horizontal: 0,
-    stops: colorStopsAdapter.getInitialState(defalutColorStop)
+    visible: true,
+    grid: false,
+    name: ""
 }
 
 const initialState: IPattern = {
@@ -45,7 +50,9 @@ const initialState: IPattern = {
     width: 100,
     height: 100,
     positioning: Positioning.Relative,
-    layers: layerAdapter.getInitialState()
+    layers: layerAdapter.getInitialState(),
+    grid: false,
+    colorStops: colorStopsAdapter.getInitialState()
 }
 
 export const patternReducer = createReducer(
@@ -74,5 +81,19 @@ export const patternReducer = createReducer(
             positioning: action.payload
         }
     }),
+    on(PatternActions.addLinear, (state, action) => {
+        const layers =  layerAdapter.addOne({...defaultLinear, name: action.payload}, state.layers);
+        return {
+            ...state,
+            layers
+        }
+    }),
+    on(PatternActions.addRadial, (state, action) => {
+        const layers = layerAdapter.addOne({...defaultRadial, name: action.payload}, state.layers);
+        return {
+            ...state,
+            layers
+        }
+    })
 )
 
