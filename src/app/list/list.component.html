@@ -1,12 +1,11 @@
 <div class="card">
     <ng-container *ngrxLet="{layers: Layers$, selected: selectedIndex$} as list">
         <div *ngFor="let layer of list.layers; index as i" [ngClass]="list.selected == i? 'list-item-active': 'list-item-inactive'">
-            <button class="text">{{layer.name}}</button>
-            <button [ngClass]="layer.visible ? 'eye-icon-active' : 'eye-icon'"></button>
-            <button [ngClass]="layer.grid ? 'grid-icon-active' : 'grid-icon'"></button>
+            <button (click)="selectLayer(i)" class="text">{{layer.name}}</button>
+            <button (click)="toogleVisibility(layer.name)" [ngClass]="layer.visible ? 'eye-icon-active' : 'eye-icon'"></button>
+            <button (click)="toogleGrid(layer.name)" [ngClass]="layer.grid ? 'grid-icon-active' : 'grid-icon'"></button>
         </div>
     </ng-container>
-    
 </div>
 
     <!-- <ng-container *ngIf="list$ | async as list">

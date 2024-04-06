@@ -21,5 +21,11 @@ export const appReducer = createReducer(
             ...state,
             repeat: action.payload
         }
+    }),
+    on(AppActions.selectLayer, (state, action) => {
+        return {
+            ...state,
+            selectedIndex: action.payload
+        }
     })
 )

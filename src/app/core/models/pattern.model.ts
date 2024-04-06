@@ -13,7 +13,7 @@ export interface IPattern {
     height: number;
     positioning: Positioning;
     layers: EntityState<Layer>;
-    colorStops: EntityState<ColorStop[]>;
+    colorStops: EntityState<{name: string, stops: ColorStop[]}>;
     grid: boolean;
 }
 

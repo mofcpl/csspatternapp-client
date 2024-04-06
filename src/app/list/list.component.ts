@@ -6,6 +6,7 @@ import { selectSelectedIndex } from '../core/store/app/app.selectors';
 import { Layer } from '../core/models/layer.model';
 import { selectAllLayers } from '../core/store/pattern/pattern.selectors';
 import { IPattern } from '../core/models/pattern.model';
+import { AppActions, PatternActions } from '../core/action-types';
 
 @Component({
   selector: 'app-list',
@@ -22,16 +23,16 @@ export class ListComponent {
     this.Layers$ = store.select(selectAllLayers);
   }
 
-  // selectLayer(type: Type, index: number) {
-  //   this.store.dispatch(select({value: {type, index}}))
-  // }
+  selectLayer(index: number) {
+    this.store.dispatch(AppActions.selectLayer({payload: index}))
+  }
 
-  // switchGrid(type: Type, index: number) {
-  //   this.store.dispatch(switchGrid({value: {type, index}}))
-  // }
+  toogleGrid(name: string) {
+    this.store.dispatch(PatternActions.toggleGrid({payload: name}))
+  }
 
-  // switchVisibility(type: Type, index: number) {
-  //   this.store.dispatch(switchVisibility({value: {type, index}}))
-  // }
+  toogleVisibility(name: string) {
+    this.store.dispatch(PatternActions.toggleVisibility({payload: name}));
+  }
 
 }

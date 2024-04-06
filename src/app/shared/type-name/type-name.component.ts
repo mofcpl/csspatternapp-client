@@ -29,8 +29,6 @@ export class TypeNameComponent {
   }
 
   submit() {
-    this.form.markAllAsTouched();
-
     if(this.form.valid) {
       this.name.emit(this.form.controls['name'].value)
     }

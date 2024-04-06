@@ -1,26 +1,26 @@
 import { createAction, props } from "@ngrx/store";
 
 export const setZoom = createAction(
-    '[Properties] Change settings zoom',
+    '[Properties component] Change settings zoom',
     props<{payload: number}>()
 )
 
 export const setGrid = createAction(
-    '[Properties] Change settings grid',
+    '[Properties component] Change settings grid',
     props<{payload: boolean}>()
 )
 
 export const setRepeat = createAction(
-    '[Properties] Change settings repeat',
+    '[Properties component] Change settings repeat',
     props<{payload: boolean}>()
 )
 
 export const selectLayer = createAction(
-    '[List] Select layer',
+    '[List component] Select layer',
     props<{payload: number}>()
 )
 
-export const addLayer = createAction(
-    '[Pattern effect] Add new layer',
-    props<{payload: string}>()
-)
+// export const addLayer = createAction(
+//     '[Pattern effect] Add new layer',
+//     props<{payload: string}>()
+// )

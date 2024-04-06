@@ -1,33 +1,32 @@
-<form >
-    <div class="control-triger">
-        <label class="control-name">background</label>
-        <input type="color" [value]="backgroundColor$ | async" (input)="changeProperties($event, Property.BackgroundColor)" />
-    </div>
-    <div class="control-triger">
-        <label class="control-name">width(px)</label>
-        <input min="2" type="number" [value]="width$ | async" (input)="changeProperties($event, Property.Width)" />
-    </div>
-    <div class="control-triger">
-        <label class="control-name">height(px)</label>
-        <input min="2" type="number" [value]="height$ | async" (input)="changeProperties($event, Property.Height)" />
-    </div>
-    <div class="control-triger">
-        <label class="control-name">grid</label>
-        <input id="grid" type="checkbox" [value]="grid$ | async" (input)="changeProperties($event, Property.Grid)" />
-    </div>
-    <div class="control-triger">
-        <label class="control-name">repeat</label>
-        <input type="checkbox" [value]="repeat$ | async" (input)="changeProperties($event, Property.Repeat)" />
-    </div>
-    <div class="control-triger">
-        <label class="control-name">positioning</label>
-        <select type="text" list="types" [value]="positioning$ | async" (input)="changeProperties($event, Property.Positioning)" >
-            <option value="%">%</option>
-            <option value="px">px</option>
-        </select>
-    </div>
-    <div class="control-triger">
-        <label class="control-name" >zoom</label>
-        <input type="range" min="0.5" max="2.5" step="0.05" [value]="zoom$ | async" (input)="changeProperties($event, Property.Zoom)" />
-    </div>
-</form>
+
+<div class="control-triger">
+    <label class="control-name">background</label>
+    <input type="color" [value]="backgroundColor$ | async" (input)="changeProperties($event, Property.BackgroundColor)" />
+</div>
+<div class="control-triger">
+    <label class="control-name">width(px)</label>
+    <input min="2" type="number" [value]="width$ | async" (input)="changeProperties($event, Property.Width)" />
+</div>
+<div class="control-triger">
+    <label class="control-name">height(px)</label>
+    <input min="2" type="number" [value]="height$ | async" (input)="changeProperties($event, Property.Height)" />
+</div>
+<div class="control-triger">
+    <label class="control-name">grid</label>
+    <input id="grid" type="checkbox" [value]="grid$ | async" (input)="changeProperties($event, Property.Grid)" />
+</div>
+<div class="control-triger">
+    <label class="control-name">repeat</label>
+    <input type="checkbox" [value]="repeat$ | async" (input)="changeProperties($event, Property.Repeat)" />
+</div>
+<div class="control-triger">
+    <label class="control-name">positioning</label>
+    <select type="text" list="types" [value]="positioning$ | async" (input)="changeProperties($event, Property.Positioning)" >
+        <option value="%">%</option>
+        <option value="px">px</option>
+    </select>
+</div>
+<div class="control-triger">
+    <label class="control-name" >zoom</label>
+    <input type="range" min="0.5" max="2.5" step="0.05" [value]="zoom$ | async" (input)="changeProperties($event, Property.Zoom)" />
+</div>

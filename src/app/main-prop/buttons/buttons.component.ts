@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PatternActions } from 'src/app/core/action-types';
+import { AppActions, PatternActions } from 'src/app/core/action-types';
 import { LayerType } from 'src/app/core/models/layer.model';
 import { IPattern } from 'src/app/core/models/pattern.model';
 import { addLinear } from 'src/app/core/store/pattern/pattern.actions';
@@ -34,8 +34,8 @@ export class ButtonsComponent {
 
   addLayer(name: string) {
     switch(this.popupLayerType) {
-      case LayerType.Linear: this.store.dispatch(addLinear({payload: name})); break;
-      case LayerType.Linear: this.store.dispatch(addLinear({payload: name})); break;
+      case LayerType.Linear: this.store.dispatch(PatternActions.addLinear({payload: name})); break;
+      case LayerType.Radial: this.store.dispatch(PatternActions.addRadial({payload: name})); break;
     }
     this.isnamePopupOpen = false;
   }

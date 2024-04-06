@@ -1,0 +1,60 @@
+<div class="control-triger" *ngIf="layer['direction']">    
+    <div class="control-name">direction</div>
+    <input type="number" [ngModel]="layer['direction']" (ngModelChange)="changeDirection($event)"/>
+</div>
+
+<div class="control-triger" *ngIf="layer['shape']">
+    <div class="control-name">shape</div>
+    <select  type="text" list="types" [ngModel]="layer['shape']" (ngModelChange)="changeShape($event)">
+        <option [value]="Shape.Ellipse">ellipse</option>
+        <option [value]="Shape.Circle">circle</option>
+    </select>
+</div>
+
+<div class="control-triger">
+    <div class="control-name">auto-size</div>
+    <input type="checkbox" [ngModel]="layer.autoSize" (ngModelChange)="changeAutoSize($event)"/>
+</div>
+
+<div class="control-triger">
+    <div class="control-name">width</div>
+    <input type="number" [ngModel]="layer.width" (ngModelChange)="changeWidth($event)"/>
+</div>
+
+<div class="control-triger">
+    <div class="control-name">height</div>
+    <input type="number" [ngModel]="layer.height" (ngModelChange)="changeHeight($event)"/>
+</div>
+                        
+<div class="control-triger" *ngIf="layer['size']">
+    <div class="control-name">size</div>
+    <select  type="text" list="types" [ngModel]="layer['size']" (ngModelChange)="changeSize($event)">
+        <option [value]="Size.FarthestCorner">farthest corner</option>
+        <option [value]="Size.ClosestSide">closest side</option>
+        <option [value]="Size.ClosestCorner">closest corner</option>
+        <option [value]="Size.FarthestSide">farthest side</option>
+    </select>
+    </div>
+                        
+<div class="control-triger" *ngIf="layer['posx']">    
+    <div class="control-name">pos x</div>
+    <input type="number" [ngModel]="layer['posx']" (ngModelChange)="changePosX($event)"/>
+</div>
+        
+<div class="control-triger" *ngIf="layer['posy']">
+    <div class="control-name">pos y</div>
+    <input type="number" [ngModel]="layer['posy']" (ngModelChange)="changePosY($event)"/>
+</div>
+                        
+<div class="control-triger">
+    <div class="control-name">vertical shift(px)</div>
+    <input type="number" [ngModel]="layer.vertical" (ngModelChange)="changeVertical($event)"/>
+</div>
+
+<div class="control-triger">
+    <div class="control-name">horizontal shift(px)</div>
+    <input type="number" [ngModel]="layer.horizontal" (ngModelChange)="changeHorizontal($event)"/>
+</div>
+
+<button type="button" class="control-button" (click)="addColorStop()">add color stop</button>
+

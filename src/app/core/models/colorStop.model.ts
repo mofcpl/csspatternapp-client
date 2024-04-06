@@ -6,3 +6,8 @@ export interface ColorStop {
     opacity: number;
     blur: number
 }
+
+export interface ColorStops {
+    name: string;
+    stops: ColorStop[]
+}

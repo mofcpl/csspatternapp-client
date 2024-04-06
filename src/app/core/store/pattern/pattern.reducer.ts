@@ -5,14 +5,14 @@ import { IPattern, Positioning } from "../../models/pattern.model";
 import { Radial, Shape, Size } from "../../models/radial.model";
 import { createReducer, on } from "@ngrx/store";
 import { PatternActions } from "../../action-types";
-import { ColorStop } from "../../models/colorStop.model";
+import { ColorStop, ColorStops } from "../../models/colorStop.model";
 
 export const layerAdapter = createEntityAdapter<Layer>({selectId: (layer: Layer) => layer.name});
-export const colorStopsAdapter = createEntityAdapter<ColorStop[]>();
+export const colorStopsAdapter = createEntityAdapter<ColorStops>({selectId: (colorStops) => colorStops.name});
 
-const defalutColorStop: ColorStop = {
+export const defalutColorStop: ColorStop = {
     position: 0,
-    color: "#000",
+    color: "#000000",
     size: 5,
     opacity: 100,
     blur: 0
@@ -83,17 +83,51 @@ export const patternReducer = createReducer(
     }),
     on(PatternActions.addLinear, (state, action) => {
         const layers =  layerAdapter.addOne({...defaultLinear, name: action.payload}, state.layers);
+        const colorStops = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.colorStops);
+        return {
+            ...state,
+            layers,
+            colorStops
+        }
+    }),
+    on(PatternActions.addRadial, (state, action) => {
+        const layers = layerAdapter.addOne({...defaultRadial, name: action.payload}, state.layers);
+        const colorStops = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.colorStops);
+        return {
+            ...state,
+            layers,
+            colorStops
+        }
+    }),
+    on(PatternActions.toggleVisibility, (state, action) => {
+        const visible = state.layers.entities[action.payload]?.visible;
+        const layers = layerAdapter.updateOne({id: action.payload, changes: {visible: !visible}}, state.layers);
         return {
             ...state,
             layers
         }
     }),
-    on(PatternActions.addRadial, (state, action) => {
-        const layers = layerAdapter.addOne({...defaultRadial, name: action.payload}, state.layers);
+    on(PatternActions.toggleGrid, (state, action) => {
+        const grid = state.layers.entities[action.payload]?.grid;
+        const layers = layerAdapter.updateOne({id: action.payload, changes: {grid: !grid}}, state.layers)
         return {
             ...state,
             layers
         }
-    })
+    }),
+    on(PatternActions.updateLayer, (state, action) => {
+        const layers = layerAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.layers);
+        return {
+            ...state,
+            layers
+        }
+    }),
+    on(PatternActions.updateColorStops, (state, action) => {
+        const colorStops = colorStopsAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.colorStops);
+        return {
+            ...state,
+            colorStops
+        }
+    }),
 )
 

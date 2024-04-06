@@ -20,7 +20,7 @@ import { ControlsComponent } from './main-prop/controls/controls.component';
 import { StoreModule } from '@ngrx/store';
 import { patternReducer } from './core/store/pattern/pattern.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { SignUpComponent } from './sign-up/sign-up.component';
 // import { SignInComponent } from './sign-in/sign-in.component';
 //import { PublishComponent } from './publish/publish.component';
@@ -39,6 +39,9 @@ import { appReducer } from './core/store/app/app.reducer';
 import { LetDirective } from '@ngrx/component';
 import { PatternEffect } from './core/store/pattern/pattern.effects';
 import { TypeNameComponent } from './shared/type-name/type-name.component';
+import { PropertiesComponent } from './properties/properties.component';
+import { LayerComponent } from './properties/layer/layer.component';
+import { ColorStopComponent } from './properties/color-stop/color-stop.component';
 
 @NgModule({
   declarations: [
@@ -64,10 +67,14 @@ import { TypeNameComponent } from './shared/type-name/type-name.component';
     // ExploreComponent,
     MainComponent,
     TypeNameComponent,
+    PropertiesComponent,
+    LayerComponent,
+    ColorStopComponent,
     // AccountComponent,
     // LogoutComponent
   ],
   imports: [
+    FormsModule,
     LetDirective,
     HttpClientModule,
     ReactiveFormsModule,
