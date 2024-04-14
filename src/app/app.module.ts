@@ -42,6 +42,7 @@ import { TypeNameComponent } from './shared/type-name/type-name.component';
 import { PropertiesComponent } from './properties/properties.component';
 import { LayerComponent } from './properties/layer/layer.component';
 import { ColorStopComponent } from './properties/color-stop/color-stop.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ColorStopComponent } from './properties/color-stop/color-stop.component
     PropertiesComponent,
     LayerComponent,
     ColorStopComponent,
+    PreviewComponent,
     // AccountComponent,
     // LogoutComponent
   ],

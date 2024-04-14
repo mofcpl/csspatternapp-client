@@ -73,35 +73,5 @@ trackById(index: number, obj: any): any {
   return index;
 }
 
-// setDirection(direction: number) {
-  
-// }
-// setShape(shape: Shape) {
-  
-// }
-// setAutoSize(autoSize: boolean) {
-  
-// }
-// setWidth(width: number) {
-  
-// }
-// setHeight(height: number) {
-  
-// }
-// setSize(size: Size) {
-  
-// }
-// setPosX(posx: number) {
-  
-// }
-// setPosY(posy: number) {
-  
-// }
-// setVertical(vertical: number) {
-  
-// }
-// setHorizontal(horizontal: number) {
-  
-// }
 
 }

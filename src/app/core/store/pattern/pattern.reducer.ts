@@ -81,6 +81,12 @@ export const patternReducer = createReducer(
             positioning: action.payload
         }
     }),
+    on(PatternActions.toggleMainGrid, (state, action) => {
+        return {
+            ...state,
+            grid: !state.grid
+        }
+    }),
     on(PatternActions.addLinear, (state, action) => {
         const layers =  layerAdapter.addOne({...defaultLinear, name: action.payload}, state.layers);
         const colorStops = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.colorStops);

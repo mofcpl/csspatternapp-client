@@ -23,6 +23,10 @@ export const setPositioning = createAction(
     props<{payload: Positioning}>()
 )
 
+export const toggleMainGrid = createAction(
+    '[Properties component] Toggle main grid',
+)
+
 export const addLinear = createAction(
     '[Buttons component] Add new linear layer',
     props<{payload: string}>()

@@ -5,11 +5,6 @@ export const setZoom = createAction(
     props<{payload: number}>()
 )
 
-export const setGrid = createAction(
-    '[Properties component] Change settings grid',
-    props<{payload: boolean}>()
-)
-
 export const setRepeat = createAction(
     '[Properties component] Change settings repeat',
     props<{payload: boolean}>()

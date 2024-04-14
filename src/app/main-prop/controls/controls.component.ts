@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable} from 'rxjs';
 import { ApplicationState } from 'src/app/core/models/applicationState.model';
 import { IPattern, Positioning } from 'src/app/core/models/pattern.model';
-import { setGrid, setRepeat, setZoom } from 'src/app/core/store/app/app.actions';
+import { setRepeat, setZoom } from 'src/app/core/store/app/app.actions';
 import { selectRepeat, selectZoom } from 'src/app/core/store/app/app.selectors';
-import { setBackgroundColor, setHeight, setPositioning, setWidth } from 'src/app/core/store/pattern/pattern.actions';
+import { setBackgroundColor, setHeight, setPositioning, setWidth, toggleMainGrid } from 'src/app/core/store/pattern/pattern.actions';
 import { selectBackgroundColor, selectHeight, selectMainGrid, selectPositioning, selectWidth } from 'src/app/core/store/pattern/pattern.selectors';
 
 export enum Property {
@@ -61,7 +61,7 @@ export class ControlsComponent implements OnInit, OnDestroy {
       case Property.Height: this.store.dispatch(setHeight({payload: event.target.value})); break;
       case Property.Positioning: this.store.dispatch(setPositioning({payload: event.target.value})); break;
       
-      case Property.Grid: this.store.dispatch(setGrid({payload: event.target.value})); break;
+      case Property.Grid: this.store.dispatch(toggleMainGrid()); break;
       case Property.Repeat: this.store.dispatch(setRepeat({payload: event.target.value})); break;
       case Property.Zoom: this.store.dispatch(setZoom({payload: event.target.value})); break;
     }

@@ -1,0 +1,52 @@
+<ng-container *ngrxLet="{backgroundColor: backgroundColor$, layers: previewLayer$} as preview">
+    <div *ngIf="preview.backgroundColor" class="background" [style.backgroundColor]="preview.backgroundColor">
+        <div *ngFor="let layer of preview.layers" [ngStyle]="{
+            'background-image': layer.image,
+            'background-size': layer.size,
+            'background-position': layer.position,
+            'visibility': layer.visibility
+        }">
+        <div *ngIf="layer.gridCode" [style]="{
+            'background-image': layer.gridCode,
+            'background-size': layer.size,
+            'background-position': layer.position,
+        }"></div> 
+        </div>
+    </div>
+    <ng-container *ngrxLet="{ gridStyle: gridStyle$, activated: grid$} as gridStyle">
+        <div *ngIf="gridStyle.activated" class="grid" [style]="gridStyle.gridStyle"></div>
+    </ng-container>
+    
+</ng-container>
+
+<!-- <div class="background" [style.backgroundColor]="backgroundColor$ | async">
+    <ng-container *ngIf="previewLinears$ | async as linears">
+        <div *ngFor="let linear of linears" [ngStyle]="{
+            'background-image': linear.image,
+            'background-size': linear.size,
+            'background-position': linear.position,
+            'visibility': linear.visibility
+        }">
+        <div *ngIf="linear.gridCode" [style]="{
+            'background-image': linear.gridCode,
+            'background-size': linear.size,
+            'background-position': linear.position,
+        }"></div> 
+        </div>
+    </ng-container>
+    <ng-container *ngIf="previewRadials$ | async as radials">
+        <div *ngFor="let radial of radials" [ngStyle]="{
+            'background-image': radial.image,
+            'background-size': radial.size,
+            'background-position': radial.position,
+            'visibility': radial.visibility
+        }">
+        <div *ngIf="radial.gridCode" [style]="{
+            'background-image': radial.gridCode,
+            'background-size': radial.size,
+            'background-position': radial.position,
+        }"></div>
+        </div>
+    </ng-container>
+    <div *ngIf="grid$ | async" class="grid" [style]="gridStyle$ | async"></div>
+</div> -->

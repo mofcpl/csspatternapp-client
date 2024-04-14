@@ -4,5 +4,3 @@ export interface ApplicationState {
     repeat: boolean;
     selectedIndex: number;
 }
-
-

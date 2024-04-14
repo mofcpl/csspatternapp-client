@@ -3,7 +3,7 @@ import { ApplicationState } from "../../models/applicationState.model";
 import { AppActions } from "../../action-types";
 
 const initialState: ApplicationState = {
-    zoom: 0,
+    zoom: 1,
     repeat: false,
     selectedIndex: 0,
 }
