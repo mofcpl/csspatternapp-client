@@ -5,8 +5,8 @@ import { Layer } from '../core/models/layer.model';
 import { ApplicationState } from '../core/models/applicationState.model';
 import { IPattern } from '../core/models/pattern.model';
 import { selectSelectedIndex } from '../core/store/app/app.selectors';
-import { selectAllColorStops, selectAllLayers } from '../core/store/pattern/pattern.selectors';
-import { ColorStop, ColorStops } from '../core/models/colorStop.model';
+import { selectAllGradient, selectAllLayers } from '../core/store/pattern/pattern.selectors';
+import { ColorStop, Gradient } from '../core/models/gradient.model';
 import { Size, Shape } from '../core/models/radial.model';
 import { PatternActions } from '../core/action-types';
 import { defalutColorStop } from '../core/store/pattern/pattern.reducer';
@@ -23,26 +23,28 @@ export class PropertiesComponent{
   Shape = Shape;
 
   layers$: Observable<Layer[]>;
-  colorStops$: Observable<ColorStops[]>;
+  colorStops$: Observable<Gradient[]>;
   selectedIndex$: Observable<number>;
-  layerWithStops$: Observable<{layer: Layer, colorStops: ColorStops, index: number} | undefined>
+  properties$: Observable<{layer: Layer, gradient: Gradient, index: number} | undefined>
 
 constructor(private store: Store<{app: ApplicationState, pattern: IPattern}>) {
   this.selectedIndex$ = store.select(selectSelectedIndex);
   this.layers$ = store.select(selectAllLayers);
-  this.colorStops$ = store.select(selectAllColorStops);
+  this.colorStops$ = store.select(selectAllGradient);
 
-  this.layerWithStops$ = combineLatest([this.layers$, this.colorStops$, this.selectedIndex$]).pipe(
-    map(([layers, colorStops, index]) => {
-      const stops = colorStops.find((element) => element.name == layers[index].name);
+  this.properties$ = combineLatest([this.layers$, this.colorStops$, this.selectedIndex$]).pipe(
+    map(([layers, gradient, index]) => {
+      if(layers.length) {
+        const stops = gradient.find((element) => element.name == layers[index].name);
       if(layers && stops && index !== undefined) {
         return {
           layer: layers[index],
-          colorStops: stops,
+          gradient: stops,
           index: index
         }
       } else return undefined
-       
+      }
+      else return undefined
     })
   )
 }
@@ -51,22 +53,25 @@ updateLayer(layer: Layer) {
   this.store.dispatch(PatternActions.updateLayer({payload: layer}))
 }
 
-updateColorStop(stops: ColorStops, index: number, updatedColorStop: ColorStop) {
-  const updatedStops = JSON.parse(JSON.stringify(stops))
-  updatedStops.stops[index] = updatedColorStop;
-  this.store.dispatch(PatternActions.updateColorStops({payload: updatedStops}))
+updateColorStop(stops: Gradient, index: number, updatedColorStop: ColorStop) {
+  const updatedGradients = JSON.parse(JSON.stringify(stops))
+  updatedGradients.stops[index] = updatedColorStop;
+  this.store.dispatch(PatternActions.updateGradient({payload: updatedGradients}))
 }
 
-addColorStop(stops: ColorStops) {
-  const updatedStops = JSON.parse(JSON.stringify(stops))
-  updatedStops.stops.push(defalutColorStop)
-  this.store.dispatch(PatternActions.updateColorStops({payload: updatedStops}))
+addColorStop(stops: Gradient) {
+  const updatedGradients = JSON.parse(JSON.stringify(stops))
+  updatedGradients.stops.push(defalutColorStop)
+  this.store.dispatch(PatternActions.updateGradient({payload: updatedGradients}))
 }
 
-deleteColorStop(stops: ColorStops, index: number) {
-  const updatedStops = JSON.parse(JSON.stringify(stops))
-  updatedStops.stops.splice(index, 1);
-  this.store.dispatch(PatternActions.updateColorStops({payload: updatedStops}))
+deleteColorStop(stops: Gradient, index: number) {
+  const updatedGradients = JSON.parse(JSON.stringify(stops))
+  updatedGradients.stops.splice(index, 1);
+  if(updatedGradients.stops.length == 0) {
+    this.store.dispatch(PatternActions.deleteLayer({payload: stops.name}))
+  }
+  this.store.dispatch(PatternActions.updateGradient({payload: updatedGradients}))
 }
 
 trackById(index: number, obj: any): any {

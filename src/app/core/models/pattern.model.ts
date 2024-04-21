@@ -1,6 +1,6 @@
 import { EntityState } from "@ngrx/entity";
 import { Layer } from "./layer.model";
-import { ColorStop } from "./colorStop.model";
+import { ColorStop } from "./gradient.model";
 
 export enum Positioning {
     Relative = "%",
@@ -13,7 +13,7 @@ export interface IPattern {
     height: number;
     positioning: Positioning;
     layers: EntityState<Layer>;
-    colorStops: EntityState<{name: string, stops: ColorStop[]}>;
+    gradients: EntityState<{name: string, stops: ColorStop[]}>;
     grid: boolean;
 }
 

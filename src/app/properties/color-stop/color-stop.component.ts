@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ColorStop } from 'src/app/core/models/colorStop.model';
+import { ColorStop } from 'src/app/core/models/gradient.model';
 
 @Component({
   selector: 'app-color-stop',

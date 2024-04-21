@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { Positioning } from "../../models/pattern.model";
 import { Layer } from "../../models/layer.model";
-import { ColorStop, ColorStops } from "../../models/colorStop.model";
+import { Gradient } from "../../models/gradient.model";
 
 export const setBackgroundColor = createAction(
     '[Properties component] Change pattern background color',
@@ -52,7 +52,12 @@ export const updateLayer = createAction(
     props<{payload: Layer}>()
 )
 
-export const updateColorStops = createAction(
+export const updateGradient = createAction(
     '[Properties Component] Update color stops',
-    props<{payload: ColorStops}>()
+    props<{payload: Gradient}>()
+)
+
+export const deleteLayer = createAction(
+    '[Properties Component] Delete layer and its gradients with no color stops',
+    props<{payload: string}>()
 )

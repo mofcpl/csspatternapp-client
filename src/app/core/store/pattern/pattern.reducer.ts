@@ -5,10 +5,10 @@ import { IPattern, Positioning } from "../../models/pattern.model";
 import { Radial, Shape, Size } from "../../models/radial.model";
 import { createReducer, on } from "@ngrx/store";
 import { PatternActions } from "../../action-types";
-import { ColorStop, ColorStops } from "../../models/colorStop.model";
+import { ColorStop, Gradient } from "../../models/gradient.model";
 
 export const layerAdapter = createEntityAdapter<Layer>({selectId: (layer: Layer) => layer.name});
-export const colorStopsAdapter = createEntityAdapter<ColorStops>({selectId: (colorStops) => colorStops.name});
+export const colorStopsAdapter = createEntityAdapter<Gradient>({selectId: (colorStops) => colorStops.name});
 
 export const defalutColorStop: ColorStop = {
     position: 0,
@@ -52,7 +52,7 @@ const initialState: IPattern = {
     positioning: Positioning.Relative,
     layers: layerAdapter.getInitialState(),
     grid: false,
-    colorStops: colorStopsAdapter.getInitialState()
+    gradients: colorStopsAdapter.getInitialState()
 }
 
 export const patternReducer = createReducer(
@@ -89,20 +89,20 @@ export const patternReducer = createReducer(
     }),
     on(PatternActions.addLinear, (state, action) => {
         const layers =  layerAdapter.addOne({...defaultLinear, name: action.payload}, state.layers);
-        const colorStops = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.colorStops);
+        const gradients = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.gradients);
         return {
             ...state,
             layers,
-            colorStops
+            gradients
         }
     }),
     on(PatternActions.addRadial, (state, action) => {
         const layers = layerAdapter.addOne({...defaultRadial, name: action.payload}, state.layers);
-        const colorStops = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.colorStops);
+        const gradients = colorStopsAdapter.addOne({stops: [defalutColorStop], name: action.payload}, state.gradients);
         return {
             ...state,
             layers,
-            colorStops
+            gradients
         }
     }),
     on(PatternActions.toggleVisibility, (state, action) => {
@@ -128,12 +128,21 @@ export const patternReducer = createReducer(
             layers
         }
     }),
-    on(PatternActions.updateColorStops, (state, action) => {
-        const colorStops = colorStopsAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.colorStops);
+    on(PatternActions.updateGradient, (state, action) => {
+        const gradient = colorStopsAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.gradients);
         return {
             ...state,
-            colorStops
+            gradient
         }
     }),
+    on(PatternActions.deleteLayer, (state, action) => {
+        const layers = layerAdapter.removeOne(action.payload, state.layers);
+        const gradient = colorStopsAdapter.removeOne(action.payload, state.gradients);
+        return {
+            ...state,
+            layers,
+            gradient
+        }
+    })
 )
 

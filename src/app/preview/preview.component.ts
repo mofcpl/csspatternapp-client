@@ -4,10 +4,10 @@ import { Observable, combineLatest, map } from 'rxjs';
 import { ApplicationState } from '../core/models/applicationState.model';
 import { IPattern, Positioning } from '../core/models/pattern.model';
 import { selectRepeat, selectZoom } from '../core/store/app/app.selectors';
-import { selectAllColorStops, selectAllLayers, selectBackgroundColor, selectCompleteLayers, selectHeight, selectMainGrid, selectPositioning, selectWidth } from '../core/store/pattern/pattern.selectors';
+import { selectBackgroundColor, selectCompleteLayers, selectHeight, selectMainGrid, selectPositioning, selectWidth } from '../core/store/pattern/pattern.selectors';
 import { Layer } from '../core/models/layer.model';
 import { UtilsService } from '../core/services/util.service';
-import { ColorStop, ColorStops } from '../core/models/colorStop.model';
+import { ColorStop, Gradient } from '../core/models/gradient.model';
 
 interface Preview {
   image: string,
@@ -32,7 +32,7 @@ export class PreviewComponent {
   backgroundColor$: Observable<string>;
   positioning$: Observable<Positioning>;
   grid$: Observable<boolean>;
-  completeLayers$: Observable<{layers: Layer[], colorStops: ColorStops[]}>;
+  completeLayers$: Observable<{layers: Layer[], gradients: Gradient[]}>;
 
   gridStyle$: Observable<{
     backgroundImage: string,
@@ -63,11 +63,11 @@ export class PreviewComponent {
     this.previewLayer$ = combineLatest([this.completeLayers$, this.width$, this.height$, this.backgroundColor$, this.positioning$, this.repeat$, this.zoom$]).pipe(
       map(([completeLayers, width, height, backgroundColor, positioning, repeat, zoom]) => {
         return completeLayers.layers.map((layer) => {
-          const currentLayerColorStops = completeLayers.colorStops.find((element) => {
+          const currentLayerGradient = completeLayers.gradients.find((element) => {
             return element.name == layer.name
           })
-          if (!currentLayerColorStops) throw Error;
-          return this.prepareLayer(layer, currentLayerColorStops.stops, width, height, backgroundColor, positioning, repeat, zoom);
+          if (!currentLayerGradient) throw Error;
+          return this.prepareLayer(layer, currentLayerGradient.stops, width, height, backgroundColor, positioning, repeat, zoom);
         })
       }
       ))

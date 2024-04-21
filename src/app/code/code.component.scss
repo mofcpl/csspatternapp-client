@@ -1,0 +1,40 @@
+@import '../../css/mixins';
+@import '../../css/variables';
+
+:host {
+    grid-area: 6 / 1 / 7 / 3;
+
+    >div {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        grid-template-rows: auto;
+
+        >.code-button {
+            grid-column: 1 / 2;
+            justify-self: center;
+            align-self: center;
+        }
+
+        >.code-text {
+            grid-column: 2 / 3;
+            justify-self: center;
+            align-self: center;
+            width: 90%;
+            height: 80%;
+            padding: 10px;
+            @include card-scheme($code-card-background, 5%);
+
+            >.code-output {
+                height: 100%;
+                width: 100%;
+                border: 0;
+                color: $code-text-color;
+                @include card-scheme-oposite($code-text-area-color, +15%);
+                overflow-y: auto;
+                box-sizing: border-box;
+                resize: none;
+                padding: 5px;
+            }
+        }
+    }
+}

@@ -1,16 +1,16 @@
 <div class="card">
-    <ng-container *ngrxLet="layerWithStops$ as layerWithStops">
+    <ng-container *ngrxLet="properties$ as layerWithStops">
         <ng-container *ngIf="layerWithStops">
             <app-layer 
                 [layer]="layerWithStops.layer" 
                 (layerChange)="updateLayer($event)" 
-                (add)="addColorStop(layerWithStops.colorStops)">
+                (add)="addColorStop(layerWithStops.gradient)">
             </app-layer>
             <app-color-stop 
-                *ngFor="let colorStops of layerWithStops.colorStops.stops; index as i; trackBy:trackById" 
+                *ngFor="let colorStops of layerWithStops.gradient.stops; index as i; trackBy:trackById" 
                 [colorStop]="colorStops"
-                (colorStopChange)="updateColorStop(layerWithStops.colorStops, i, $event)"
-                (delete)="deleteColorStop(layerWithStops.colorStops, i)">
+                (colorStopChange)="updateColorStop(layerWithStops.gradient, i, $event)"
+                (delete)="deleteColorStop(layerWithStops.gradient, i)">
             </app-color-stop>
         </ng-container>
     </ng-container>

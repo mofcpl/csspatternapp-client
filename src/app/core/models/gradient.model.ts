@@ -7,7 +7,7 @@ export interface ColorStop {
     blur: number
 }
 
-export interface ColorStops {
+export interface Gradient {
     name: string;
     stops: ColorStop[]
 }

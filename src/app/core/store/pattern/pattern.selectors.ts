@@ -15,13 +15,13 @@ const { selectTotal: totalLayers, selectAll: allLayers} = layerAdapter.getSelect
 export const selectLayerCount = totalLayers;
 export const selectAllLayers = allLayers;
 
-const selectColorStopsEntity = createSelector(getPattern, (state: IPattern) => state.colorStops)
-const { selectAll: allColorStops } = colorStopsAdapter.getSelectors(selectColorStopsEntity)
-export const selectAllColorStops = allColorStops
+const selectGradientEntity = createSelector(getPattern, (state: IPattern) => state.gradients)
+const { selectAll: allGradient } = colorStopsAdapter.getSelectors(selectGradientEntity)
+export const selectAllGradient = allGradient
 
-export const selectCompleteLayers = createSelector(getPattern, allLayers, allColorStops, (state, layers, colorStops) => {
+export const selectCompleteLayers = createSelector(getPattern, allLayers, allGradient, (state, layers, gradients) => {
     return {
         layers,
-        colorStops
+        gradients
     }
 })
