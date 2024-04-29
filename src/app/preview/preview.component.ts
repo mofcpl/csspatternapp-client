@@ -4,10 +4,10 @@ import { Observable, combineLatest, map } from 'rxjs';
 import { ApplicationState } from '../core/models/applicationState.model';
 import { IPattern, Positioning } from '../core/models/pattern.model';
 import { selectRepeat, selectZoom } from '../core/store/app/app.selectors';
-import { selectBackgroundColor, selectCompleteLayers, selectHeight, selectMainGrid, selectPositioning, selectWidth } from '../core/store/pattern/pattern.selectors';
+import { selectAllGradients, selectAllLayers, selectBackgroundColor, selectCompleteLayers, selectHeight, selectMainGrid, selectPositioning, selectWidth } from '../core/store/pattern/pattern.selectors';
 import { Layer } from '../core/models/layer.model';
-import { UtilsService } from '../core/services/util.service';
 import { ColorStop, Gradient } from '../core/models/gradient.model';
+import { PatternService } from '../core/services/pattern.service';
 
 interface Preview {
   image: string,
@@ -32,16 +32,18 @@ export class PreviewComponent {
   backgroundColor$: Observable<string>;
   positioning$: Observable<Positioning>;
   grid$: Observable<boolean>;
+  layers$: Observable<Layer[]>;
+  gradients$: Observable<Gradient[]>;
   completeLayers$: Observable<{layers: Layer[], gradients: Gradient[]}>;
 
   gridStyle$: Observable<{
-    backgroundImage: string,
-    backgroundSize: string
+    backgroundImage: string | null,
+    backgroundSize: string | null
   }>
 
   previewLayer$: Observable<Preview[]>;
 
-  constructor(private store: Store<{ app: ApplicationState, pattern: IPattern }>, private utils: UtilsService) {
+  constructor(private store: Store<{ app: ApplicationState, pattern: IPattern }>, private patternService: PatternService) {
     this.zoom$ = this.store.select(selectZoom);
     this.repeat$ = this.store.select(selectRepeat);
 
@@ -50,11 +52,13 @@ export class PreviewComponent {
     this.backgroundColor$ = this.store.select(selectBackgroundColor);
     this.positioning$ = this.store.select(selectPositioning);
     this.grid$ = this.store.select(selectMainGrid);
+    this.layers$ = this.store.select(selectAllLayers);
+    this.gradients$ = this.store.select(selectAllGradients);
     this.completeLayers$ = this.store.select(selectCompleteLayers);
 
-    this.gridStyle$ = combineLatest([this.width$, this.height$, this.backgroundColor$, this.zoom$]).pipe(
-      map(([width, height, backgroundColor, zoom]) => {
-        const backgroundImage = this.drawGrid(width, height, backgroundColor, zoom);
+    this.gridStyle$ = combineLatest([this.width$, this.height$, this.backgroundColor$, this.zoom$, this.grid$]).pipe(
+      map(([width, height, backgroundColor, zoom, grid]) => {
+        const backgroundImage = this.patternService.generateGridCode(width, height, backgroundColor, zoom, grid);
         const backgroundSize = (width * zoom) + "px " + (height * zoom) + "px";
         return { backgroundImage, backgroundSize }
       })
@@ -73,81 +77,7 @@ export class PreviewComponent {
       ))
   }
 
-  prepareLayer(layer: Layer, colorStop: ColorStop[], width: number, height: number, backgroundColor: string, positioning: Positioning, repeat: boolean, zoom: number): Preview {
-
-    let backgroundImageCode = "";
-
-    //Determine which type of object is layer
-    if ('direction' in layer) {
-      
-      backgroundImageCode = "linear-gradient(" + layer['direction'] + "deg, ";
-    
-    } else {
-      
-      let posx = layer['posx'];
-      let posy = layer['posy'];
-      
-      if(positioning == Positioning.Absolute) {
-        posx *= zoom;
-        posy *= zoom;
-      }
-      
-      backgroundImageCode += "radial-gradient(" + layer['shape'] + " " + layer['size'] + " at " + posx + positioning + " " + posy + positioning + ", ";
-    }
-
-    colorStop.map((element, index) => {
-      const color = this.utils.hexToRgb(element.color);
-      const rgbString = "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", " + element.opacity / 100 + ")";
-
-      let position = element.position;
-      let size = element.size;
-      
-      if(positioning = Positioning.Absolute) {
-        position *= zoom;
-        size *= zoom;
-      }
-
-      const vacancyLeft = "transparent " + (position - 1 - element.blur) + positioning;
-      const colorLeft = rgbString + " " + position + positioning;
-      const colorRight = rgbString + " " + (position - 1 + size) + positioning;
-      const vacancyRight = "transparent " + (position + size + element.blur) + positioning;
-
-      backgroundImageCode += vacancyLeft + ", " + colorLeft + ", " + colorRight + ", " + vacancyRight;
-      
-      backgroundImageCode += (index < (colorStop.length - 1)) ? ", " : ") ";
-
-    })
-
-    const autoWidth = width * zoom;
-    const autoHeight = height * zoom;
-    const manualWidth = layer.width * zoom;
-    const manualHeight = layer.height * zoom;
-
-    const relativeWidth = (layer.autoSize == true) ? autoWidth : manualWidth;
-    const relativeHeight = (layer.autoSize == true) ? autoHeight : manualHeight;
-
-    let backgroundPosCode = (layer.vertical * zoom) + "px " + (layer.horizontal * zoom) + "px";
-    let backgroundWidthCode = relativeWidth;
-    let backgroundHeightCode = relativeHeight;
-    let backgroundSizeCode = backgroundWidthCode + "px " + backgroundHeightCode + "px ";
-
-    const visibility = (layer.visible == true) ? "visible" : "hidden";
-    const grid = (layer.grid)? this.drawGrid(width, height, backgroundColor, zoom): null;
-
-    return {
-      image: backgroundImageCode,
-      position: backgroundPosCode,
-      visibility: visibility,
-      gridCode: grid,
-      size: backgroundSizeCode
-    }
-
-  }
-
-  drawGrid(width: number, height: number, color: string, zoom: number): string {
-    const colorRGB = this.utils.hexToRgb(color);
-    const gridColor = (colorRGB[0] + colorRGB[1] + colorRGB[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
-    return "linear-gradient(90deg,transparent " + (width * zoom - 1) + "px, " + gridColor + " " + (width * zoom - 1) + "px, " + gridColor + " " + (width * zoom) + "px),"
-      + "linear-gradient(180deg,transparent " + (height * zoom - 1) + "px, " + gridColor + " " + (height * zoom - 1) + "px, " + gridColor + " " + (height * zoom) + "px)";
+  prepareLayer(layer: Layer, colorStops: ColorStop[], width: number, height: number, backgroundColor: string, positioning: Positioning, repeat: boolean, zoom: number): Preview {
+    return this.patternService.generateLayerCode(layer, colorStops, positioning, zoom, backgroundColor, width, height, layer.grid)
   }
 }

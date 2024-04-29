@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
 import { LinksComponent } from './links/links.component';
 import { FooterComponent } from './footer/footer.component';
-//import { CodeComponent } from './code/code.component';
+import { CodeComponent } from './code/code.component';
 import { MainPropComponent } from './main-prop/main-prop.component';
 // import { ManagementComponent } from './management/management.component';
 // import { PreviewComponent } from './preview/preview.component';
@@ -50,7 +50,7 @@ import { PreviewComponent } from './preview/preview.component';
     LogoComponent,
     LinksComponent,
     FooterComponent,
-    //CodeComponent,
+    CodeComponent,
     MainPropComponent,
     // ManagementComponent,
     // PreviewComponent,

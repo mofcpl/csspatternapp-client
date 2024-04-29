@@ -129,10 +129,10 @@ export const patternReducer = createReducer(
         }
     }),
     on(PatternActions.updateGradient, (state, action) => {
-        const gradient = colorStopsAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.gradients);
+        const gradients = colorStopsAdapter.updateOne({id: action.payload.name, changes: {...action.payload}}, state.gradients);
         return {
             ...state,
-            gradient
+            gradients
         }
     }),
     on(PatternActions.deleteLayer, (state, action) => {

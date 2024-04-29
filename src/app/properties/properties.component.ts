@@ -5,7 +5,7 @@ import { Layer } from '../core/models/layer.model';
 import { ApplicationState } from '../core/models/applicationState.model';
 import { IPattern } from '../core/models/pattern.model';
 import { selectSelectedIndex } from '../core/store/app/app.selectors';
-import { selectAllGradient, selectAllLayers } from '../core/store/pattern/pattern.selectors';
+import { selectAllGradients, selectAllLayers } from '../core/store/pattern/pattern.selectors';
 import { ColorStop, Gradient } from '../core/models/gradient.model';
 import { Size, Shape } from '../core/models/radial.model';
 import { PatternActions } from '../core/action-types';
@@ -30,7 +30,7 @@ export class PropertiesComponent{
 constructor(private store: Store<{app: ApplicationState, pattern: IPattern}>) {
   this.selectedIndex$ = store.select(selectSelectedIndex);
   this.layers$ = store.select(selectAllLayers);
-  this.colorStops$ = store.select(selectAllGradient);
+  this.colorStops$ = store.select(selectAllGradients);
 
   this.properties$ = combineLatest([this.layers$, this.colorStops$, this.selectedIndex$]).pipe(
     map(([layers, gradient, index]) => {
