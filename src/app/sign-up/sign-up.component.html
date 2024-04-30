@@ -1,0 +1,45 @@
+<div class="window">
+    <form [formGroup]="form">
+        <div *ngIf="isSuccess$ | async; else signupBlock">
+            <p>Sign up successfull, You can now sign in.</p>
+            <button type="button" (click)="cancel()">ok</button>
+        </div>
+        <ng-template #signupBlock>
+            <p>
+                <label>name</label>
+                <input type="text" formControlName="username">
+            </p>
+            <ng-container *ngIf="!form.get('username')?.valid && form.get('username')?.dirty">
+                <p class="warning" *ngIf="form.get('username')?.errors?.['required']">name is required</p>
+            </ng-container>
+            <p>
+                <label>email</label>
+                <input type="email" formControlName="email">
+            </p>
+            <ng-container *ngIf="!form.get('email')?.valid && form.get('email')?.dirty">
+                <p class="warning" *ngIf="form.get('email')?.errors?.['required']">email is required</p>
+                <p class="warning" *ngIf="form.get('email')?.errors?.['email']">email is incorrect</p>
+            </ng-container>
+            <p>
+                <label>repeat email</label>
+                <input type="email" formControlName="repeatEmail">
+            </p>
+            <p>
+                <label>password</label>
+                <input type="password" formControlName="password">
+            </p>
+            <ng-container *ngIf="!form.get('password')?.valid && form.get('password')?.dirty">
+                <p class="warning" *ngIf="form.get('password')?.errors?.['required']">password is required</p>
+            </ng-container>
+            <p>
+                <label>repeat password</label>
+                <input type="password" formControlName="repeatPassword">
+            </p>
+            <p class="warning" *ngIf="form.errors?.['repeatEmail'] && form.dirty">Email does not match</p>
+            <p class="warning" *ngIf="form.errors?.['repeatPassword'] && form.dirty">Password does not match</p>
+            <p class="warning" *ngFor="let error of errors; index as i">{{error}}</p>
+            <button type="submit" (click)="submit()" [disabled]="isLoading$ | async">Sign up</button>
+            <button type="button" (click)="cancel()" [disabled]="isLoading$ | async">cancel</button>
+        </ng-template>
+    </form>
+</div>

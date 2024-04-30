@@ -92,7 +92,7 @@ export class PatternService {
             let position = element.position;
             let size = element.size;
 
-            if (positioning = Positioning.Absolute) {
+            if (positioning == Positioning.Absolute) {
                 position *= zoom;
                 size *= zoom;
             }

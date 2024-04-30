@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
 import { IPattern } from "../../models/pattern.model";
-import { colorStopsAdapter, layerAdapter } from "./pattern.reducer";
+import { gradientsAdapter, layerAdapter } from "./pattern.reducer";
 
 export const getPattern = (state: {pattern: IPattern}) => state.pattern;
 
@@ -16,7 +16,7 @@ export const selectLayerCount = totalLayers;
 export const selectAllLayers = allLayers;
 
 const selectGradientEntity = createSelector(getPattern, (state: IPattern) => state.gradients)
-const { selectAll: allGradients } = colorStopsAdapter.getSelectors(selectGradientEntity)
+const { selectAll: allGradients } = gradientsAdapter.getSelectors(selectGradientEntity)
 export const selectAllGradients = allGradients
 
 export const selectCompleteLayers = createSelector(getPattern, allLayers, allGradients, (state, layers, gradients) => {

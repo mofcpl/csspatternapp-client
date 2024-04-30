@@ -16,12 +16,12 @@
 
 <div class="control-triger">                                  
     <div class="control-name">opacity</div>
-    <input type="number" [ngModel]="colorStop.opacity"/>
+    <input type="number" [ngModel]="colorStop.opacity" (ngModelChange)="changeOpacity($event)"/>
 </div>
 
 <div class="control-triger">                                  
     <div class="control-name">blur</div>
-    <input type="number" [ngModel]="colorStop.blur"/>
+    <input type="number" [ngModel]="colorStop.blur" (ngModelChange)="changeBlur($event)"/>
 </div>
                                 
 <button class="control-button" type="button" (click)="deleteColorStop()">delete</button>

@@ -19,7 +19,7 @@ export const appReducer = createReducer(
     on(AppActions.setRepeat, (state, action) => {
         return {
             ...state,
-            repeat: action.payload
+            repeat: !state.repeat
         }
     }),
     on(AppActions.selectLayer, (state, action) => {

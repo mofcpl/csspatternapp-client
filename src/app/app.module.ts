@@ -7,7 +7,7 @@ import { LinksComponent } from './links/links.component';
 import { FooterComponent } from './footer/footer.component';
 import { CodeComponent } from './code/code.component';
 import { MainPropComponent } from './main-prop/main-prop.component';
-// import { ManagementComponent } from './management/management.component';
+import { ManagementComponent } from './management/management.component';
 // import { PreviewComponent } from './preview/preview.component';
 // import { PropertiesComponent } from './properties/properties.component';
 import { ListComponent } from './list/list.component';
@@ -24,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { SignUpComponent } from './sign-up/sign-up.component';
 // import { SignInComponent } from './sign-in/sign-in.component';
 //import { PublishComponent } from './publish/publish.component';
-// import { ExploreComponent } from './explore/explore.component';
+import { ExploreComponent } from './explore/explore.component';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
 // import { AccountComponent } from './account/account.component';
@@ -52,7 +52,7 @@ import { PreviewComponent } from './preview/preview.component';
     FooterComponent,
     CodeComponent,
     MainPropComponent,
-    // ManagementComponent,
+    ManagementComponent,
     // PreviewComponent,
     // PropertiesComponent,
     ListComponent,
@@ -65,7 +65,7 @@ import { PreviewComponent } from './preview/preview.component';
     // SignUpComponent,
     // SignInComponent,
     //PublishComponent,
-    // ExploreComponent,
+    ExploreComponent,
     MainComponent,
     TypeNameComponent,
     PropertiesComponent,

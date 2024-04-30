@@ -1,0 +1,15 @@
+<div class="window">
+    <form [formGroup]="form">
+        <p>
+            <label>name</label>
+            <input type="text" formControlName="username">
+        </p>
+        <p>
+            <label>homepage</label>
+            <input type="text" formControlName="homepage">
+        </p>
+        <p class="warning" *ngFor="let error of errors; index as i">{{error}}</p>
+        <button type="button" (click)="submit()" [disabled]="isLoading$ | async">Update</button>
+        <button type="button" (click)="cancel()" [disabled]="isLoading$ | async">cancel</button>
+        </form>
+</div>
