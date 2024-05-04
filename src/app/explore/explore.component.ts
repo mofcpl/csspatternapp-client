@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ApiService } from "../core/services/api.service";
-import { Observable } from "rxjs";
+import { Observable, catchError, of, tap } from "rxjs";
 import { IPattern } from "../core/models/pattern.model";
 import { Store } from "@ngrx/store";
 import { ProjectPreview } from "../core/models/projectPreview.model";
@@ -13,13 +13,25 @@ import { PatternActions } from "../core/action-types";
     styleUrls: ['./explore.component.scss'],
     host: {'class': 'container-window'}
   })
-export class ExploreComponent implements OnInit{
-  list$!: Observable<ProjectPreview[]>;
+export class ExploreComponent implements OnInit {
+  list$!: Observable<ProjectPreview[] | null>;
+  loading: boolean = false;
+  error: string | null = null;
   
   constructor(private router: Router, private api: ApiService, private store: Store<{pattern: IPattern}>) {}
 
   ngOnInit() {
-    this.list$ = this.api.getAllProjectsPreview();
+    this.loading = true;
+    this.list$ = this.api.getAllProjectsPreview().pipe(
+      tap(() => {
+        this.loading = false;
+      }),
+      catchError((error) => {
+        this.error = error.message;
+        this.loading = false;
+        return of(null)
+      })
+    )
   }
 
   cancel() {
@@ -32,5 +44,9 @@ export class ExploreComponent implements OnInit{
       this.router.navigate([''])
     })
     
+  }
+
+  confirmError() {
+    this.error = null
   }
 }

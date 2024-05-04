@@ -1,22 +1,26 @@
-<div id="explore" class="window">
-    <!--<div id="sort">
-        <div>
-            <div>sort by</div>
-            <select type="text" list="types">
-                <option>most popular</option>
-                <option>newest</option>
-                <option>alphabetic</option>
-            </select>
-        </div>
-    </div> -->
-    <div class="content" id="projects">
-        <ng-container *ngIf="list$ | async as list">
-            <div *ngFor="let project of list" class="preview" [ngStyle]="project.style">
-                <div (click)="load(project.id)">
-                    <h2>{{project.title}}</h2>
-                </div>
+<app-loading *ngIf="loading"></app-loading>
+<app-error *ngIf="error" [errorMessage]="error" (confirm)="confirmError()"></app-error>
+<div class="window">
+    <div class="explore card">
+        <!--<div id="sort">
+            <div>
+                <div>sort by</div>
+                <select type="text" list="types">
+                    <option>most popular</option>
+                    <option>newest</option>
+                    <option>alphabetic</option>
+                </select>
             </div>
-        </ng-container>
+        </div> -->
+        <div class="content" id="projects">
+            <ng-container *ngIf="list$ | async as list">
+                <div *ngFor="let project of list" class="preview" [ngStyle]="project.style">
+                    <div (click)="load(project.id)">
+                        <h2>{{project.title}}</h2>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <button type="button" (click)="cancel()">cancel</button>
     </div>
-    <button type="button" (click)="cancel()">cancel</button>
 </div>

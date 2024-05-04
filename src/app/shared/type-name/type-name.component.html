@@ -1,16 +1,18 @@
-
 <div class="window">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-        <p>
-            <label>layer name</label>
-            <input type="text" formControlName="name">
-        </p>
-        <ng-container *ngIf="!form.get('name')?.valid && form.get('name')?.dirty">
-            <p class="warning" *ngIf="form.get('name')?.errors?.['required']">name is required</p>
-            <p class="warning" *ngIf="form.get('name')?.errors?.['taken']">name is already taken</p>
-        </ng-container>
+
+    <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="controls">
+            <p>
+                <label>layer name</label>
+                <input type="text" formControlName="name">
+            </p>
+            <ng-container *ngIf="!form.get('name')?.valid && form.get('name')?.dirty">
+                <p class="warning" *ngIf="form.get('name')?.errors?.['required']">name is required</p>
+                <p class="warning" *ngIf="form.get('name')?.errors?.['taken']">name is already taken</p>
+            </ng-container>
+        </div>
         <button type="submit" [disabled]="!form.valid">ok</button>
         <button type="button" (click)="cancel()">cancel</button>
     </form>
-</div>
 
+</div>

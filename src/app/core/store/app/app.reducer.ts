@@ -6,6 +6,10 @@ const initialState: ApplicationState = {
     zoom: 1,
     repeat: false,
     selectedIndex: 0,
+    projectIndex: null,
+    user: null,
+    loading: false,
+    error: false
 }
 
 export const appReducer = createReducer(

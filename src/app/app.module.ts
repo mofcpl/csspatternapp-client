@@ -43,6 +43,8 @@ import { PropertiesComponent } from './properties/properties.component';
 import { LayerComponent } from './properties/layer/layer.component';
 import { ColorStopComponent } from './properties/color-stop/color-stop.component';
 import { PreviewComponent } from './preview/preview.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { ErrorComponent } from './shared/error/error.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { PreviewComponent } from './preview/preview.component';
     LayerComponent,
     ColorStopComponent,
     PreviewComponent,
+    LoadingComponent,
+    ErrorComponent,
     // AccountComponent,
     // LogoutComponent
   ],
