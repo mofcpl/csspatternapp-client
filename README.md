@@ -23,7 +23,7 @@ npm install
 ng serve
 ```
 
-For some features, an API service must be running. Refer to [csspatternapp-server](https://github.com/mofcpl/csspatternapp-server) for instructions.
+For some features, an API service must be running. Refer to [csspatternapp-server](https://github.com/mofcpl/csspatternapp-server-node) for instructions.
 
 ## Technologies
 
